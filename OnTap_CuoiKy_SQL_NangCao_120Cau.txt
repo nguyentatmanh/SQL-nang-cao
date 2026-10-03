@@ -1,0 +1,1619 @@
+﻿CƠ SỞ DỮ LIỆU NÂNG CAO
+120 câu trắc nghiệm ôn tập cuối
+kỳ
+Theo đề giữa kỳ HUCE LMS và slide chương I-V
+Một đáp án đúng mỗi câu • Có bài đọc mã T-SQL • Đáp án tách riêng
+Cách dùng bộ câu hỏi
+Làm phần đề trước khi mở đáp án. Với câu đọc mã, ghi lại giá trị biến, số hàng hoặc trạng thái
+giao dịch sau từng lệnh. Chỉ đối chiếu đáp án khi đã có cách giải của mình.
+Phạm vi là 5 chương bạn cung cấp. Phân bố dưới đây phục vụ luyện tập, không phải ma trận
+hoặc dự đoán đề cuối kỳ chính thức. Câu hỏi được biên soạn mới; một số dạng giữa kỳ được
+dùng lại với dữ kiện khác.
+Nội dung
+Số câu
+Chươn
+g
+1
+Tổng quan RDBMS và SQL Server
+12
+2
+Kiểu dữ liệu, tạo CSDL và lập trình T-SQL
+24
+3
+Chuyển đổi kiểu, hàm thư viện và mã kịch bản
+28
+4
+Stored Procedure và giao dịch
+24
+5
+Hàm người dùng định nghĩa, View và Trigger
+32
+14 câu nhận biết • 41 câu thông hiểu • 65 câu vận dụng
+Tháng 10/2026 • Bộ câu hỏi tự học, không phải đề thi chính thức
+
+Hướng dẫn và quy ước
+Mỗi câu có bốn lựa chọn A-D và đúng một đáp án. Khi câu hỏi yêu cầu các dòng PRINT, không
+tính thông báo lỗi hoặc thông báo số hàng bị tác động.
+Các câu độc lập với nhau. Tên đối tượng trong đoạn CREATE chưa tồn tại, trừ khi đề nói khác.
+Bảng, cột và quyền truy cập đáp ứng mô tả của từng câu.
+Mã dùng cú pháp T-SQL phù hợp nền tảng SQL Server trong bài học. Các đoạn có GO được
+chạy bằng SSMS/SQLCMD; GO là dấu phân tách batch của công cụ, không phải câu lệnh T-SQL
+do Database Engine thực thi.
+Giao dịch bắt đầu với @@TRANCOUNT=0 nếu không nêu khác. Không có trigger hoặc ràng
+buộc phụ ngoài mô tả. Khi câu nêu tập ID mà không có ORDER BY, đánh giá tập giá trị, không
+đánh giá thứ tự hàng.
+Chuỗi ngày dùng dạng YYYYMMDD hoặc dạng ISO có chữ T để tránh phụ thuộc cách hiểu
+ngày/tháng. Các câu dung lượng chuỗi chỉ dùng ASCII và bỏ phần quản lý độ dài.
+Chỉ dẫn nguồn ở phần giải thích dùng số trang PDF, tính từ trang đầu; không phải số trang in
+riêng trên slide. Các câu có ghi chú M1-M4 được làm rõ bằng tài liệu Microsoft Learn.
+Ưu tiên ôn lại từ bài giữa kỳ
+Savepoint (câu 21 giữa kỳ): luyện câu 85-87. Phân biệt rollback đến một mốc và rollback toàn
+bộ.
+SELECT gán biến khi không có hàng (câu 26 giữa kỳ): luyện câu 60-61. Phân biệt tập rỗng và
+truy vấn tổng hợp trên tập rỗng.
+Ưu tiên kiểu khi cộng số và chuỗi (câu 31 giữa kỳ): luyện câu 37-42. Ép kiểu trước khi chia nếu
+cần phần lẻ.
+Lỗi chèn và giao dịch (câu 36 giữa kỳ): luyện câu 23, 78-80. Theo dõi lệnh nào đã commit và
+lệnh nào bị rollback.
+Đề luyện hỗn hợp trên bản HTML
+Mở file HTML bằng trình duyệt. Chọn luyện tập để xem giải thích sau khi trả lời; chọn thi thử
+để chỉ xem đáp án sau khi nộp. Đề ngẫu nhiên 40 câu dùng 4/8/9/8/11 câu của chương
+I/II/III/IV/V. Mốc 50 phút mô phỏng thời lượng bài giữa kỳ, không xác nhận thời lượng thi cuối
+kỳ.
+
+CHƯƠNG 1
+Tổng quan RDBMS và SQL Server
+Câu 001-012 | 12 câu
+Câu 001. Phát biểu nào phân biệt đúng cơ sở dữ liệu và hệ quản trị cơ sở dữ liệu?
+A. CSDL và DBMS đều chỉ là tệp dữ liệu trên đĩa.
+B. CSDL là tập dữ liệu có tổ chức; DBMS là phần mềm quản lý tập dữ liệu đó.
+C. DBMS chỉ dùng để vẽ lược đồ, không thao tác dữ liệu.
+D. CSDL là phần mềm; DBMS là tập các bản ghi.
+Nhận biết | CSDL và DBMS
+Câu 002. Hai phòng ban lưu riêng địa chỉ của cùng khách hàng. Chỉ một phòng sửa địa chỉ,
+khiến hai bản khác nhau. Tình huống minh họa nhược điểm nào?
+A. Tăng tính độc lập của dữ liệu.
+B. Bảo đảm toàn vẹn tham chiếu.
+C. Dư thừa dữ liệu dẫn đến không nhất quán.
+D. Tối ưu hóa truy vấn tự động.
+Thông hiểu | Hệ thống file
+Câu 003. Trong mô hình quan hệ, cặp thuật ngữ nào tương ứng với hàng và cột?
+A. Thuộc tính và quan hệ.
+B. Bộ dữ liệu và thuộc tính.
+C. Miền giá trị và bộ dữ liệu.
+D. Quan hệ và cơ sở dữ liệu.
+Nhận biết | Mô hình quan hệ
+Câu 004. Ai chịu trách nhiệm cấp quyền truy cập và giám sát việc sử dụng CSDL?
+A. Người quản trị CSDL (DBA).
+B. Mọi người dùng được cấp tài khoản.
+C. Người dùng cuối chỉ tra cứu.
+D. Nhân viên nhập dữ liệu.
+Thông hiểu | Vai trò người dùng
+Câu 005. Trong mô hình khách chủ của SQL Server, mô tả nào đúng?
+A. Client phải sao chép toàn bộ CSDL trước mỗi truy vấn.
+B. Server chỉ lưu file, mọi truy vấn do client xử lý.
+C. Client gửi truy vấn; server xử lý và trả kết quả.
+D. Mỗi server chỉ cho một client kết nối tại một thời điểm.
+Thông hiểu | Khách chủ
+
+Câu 006. Cần viết truy vấn và quản lý các đối tượng CSDL bằng giao diện đồ họa. Công cụ
+phù hợp là gì?
+A. SQL Server Profiler.
+B. SQL Server Installation Center.
+C. SQL Server Management Studio (SSMS).
+D. SQL Server Configuration Manager.
+Nhận biết | Công cụ
+Câu 007. Cần bật giao thức kết nối và đổi chế độ khởi động dịch vụ SQL Server. Nên dùng
+công cụ nào?
+A. SQL Server Reporting Services.
+B. SQL Server Configuration Manager.
+C. View Designer.
+D. Query Designer.
+Thông hiểu | Công cụ
+Câu 008. Muốn thực thi tập lệnh SQL qua công cụ dòng lệnh thay cho SSMS, chọn công cụ
+nào?
+A. Database Diagrams.
+B. Object Explorer.
+C. View Designer.
+D. SQLCMD.
+Nhận biết | Công cụ
+Câu 009. Cần di chuyển, chuyển đổi và tích hợp dữ liệu từ nhiều nguồn. Dịch vụ nào phù hợp
+nhất?
+A. SQL Server Configuration Manager.
+B. SQL Server Reporting Services (SSRS).
+C. SQL Server Analysis Services (SSAS).
+D. SQL Server Integration Services (SSIS).
+Thông hiểu | Dịch vụ
+Câu 010. Cặp phần mở rộng nào tương ứng với file dữ liệu chính và file nhật ký giao dịch?
+A. .bak và .sql.
+B. .mdf và .ldf.
+C. .ldf và .ndf.
+D. .sql và .mdf.
+Nhận biết | File CSDL
+
+Câu 011. Muốn chuyển các file của một CSDL đang được attach sang thư mục khác theo quy
+trình trong slide. Thứ tự nào đúng?
+A. Chuyển file khi CSDL vẫn đang attach, rồi refresh.
+B. Attach thêm lần nữa, rồi xóa file cũ.
+C. Detach CSDL, chuyển file, rồi attach lại.
+D. DROP tất cả bảng, chuyển file .sql, rồi attach.
+Thông hiểu | Attach và Detach
+Câu 012. Khi chọn Windows Authentication trong SSMS, thông tin định danh nào được dùng?
+A. Tên bảng chứa tài khoản ứng dụng.
+B. Tài khoản Windows của người kết nối.
+C. Một SQL Login và mật khẩu nhập riêng.
+D. Tên CSDL đang được truy vấn.
+Thông hiểu | Xác thực
+
+CHƯƠNG 2
+Kiểu dữ liệu, tạo CSDL và lập trình T-SQL
+Câu 013-036 | 24 câu
+Câu 013. Cột HoTen lưu tên tiếng Việt có dấu và độ dài thay đổi, tối đa 80 ký tự thông dụng.
+Kiểu phù hợp nhất là gì?
+A. varchar(80)
+B. nchar(80)
+C. char(80)
+D. nvarchar(80)
+Thông hiểu | Chuỗi Unicode
+Câu 014. MaHang luôn gồm đúng 6 ký tự ASCII, như AB0001. Kiểu phù hợp nhất theo tiêu chí
+trong slide là gì?
+A. nvarchar(600)
+B. nchar(60)
+C. varchar(max)
+D. char(6)
+Thông hiểu | Chuỗi cố định
+Câu 015. Bốn giá trị char(5), varchar(5), nchar(5), nvarchar(5) cùng lưu chuỗi ASCII ABC.
+Không tính phần quản lý độ dài. Tổng số byte dữ liệu là bao nhiêu?
+A. 30
+B. 24
+C. 16
+D. 18
+Vận dụng | Dung lượng chuỗi
+Câu 016. decimal(7,2) cho phép tối đa bao nhiêu chữ số ở phần nguyên?
+A. 7
+B. 2
+C. 5
+D. 9
+Thông hiểu | Decimal
+Câu 017. Biến @x có kiểu decimal(5,2). Phép gán nào gây tràn số?
+A. SET @x = 1000.00;
+B. SET @x = 1.234;
+C. SET @x = -12.50;
+D. SET @x = 999.99;
+Vận dụng | Decimal và tràn
+
+Câu 018. Cột SoNguoi chỉ nhận số nguyên từ 0 đến 200, không NULL. Kiểu nhỏ nhất đáp ứng
+miền giá trị là gì?
+A. int
+B. tinyint
+C. smallint
+D. bit
+Thông hiểu | Số nguyên
+Câu 019. NgaySinh chỉ chứa ngày; ThoiDiemNop cần ngày giờ chính xác đến 7 chữ số phần lẻ
+giây, không cần độ lệch múi giờ. Cặp kiểu phù hợp là gì?
+A. date và datetimeoffset(7)
+B. time(7) và date
+C. date và datetime2(7)
+D. datetime và time(7)
+Thông hiểu | Ngày giờ
+Câu 020. Số điện thoại có thể bắt đầu bằng 0 và có dấu + ở đầu. Lựa chọn nào phù hợp?
+A. Lưu bằng float để giữ dấu +.
+B. Lưu bằng kiểu chuỗi như varchar(20).
+C. Lưu bằng int để giữ nguyên số 0 đầu.
+D. Lưu bằng bit vì chỉ cần biết có số.
+Thông hiểu | Chuỗi chứa số
+Câu 021. Ba kiểu hiện đại thay thế text, ntext, image theo thứ tự là gì?
+A. varchar(max), nvarchar(max), varbinary(max)
+B. char(8000), nchar(4000), nvarchar(max)
+C. nvarchar(max), varchar(max), varbinary(max)
+D. varchar(max), varbinary(max), nvarchar(max)
+Nhận biết | Kiểu giá trị lớn
+Câu 022. Cặp nào gồm một lệnh sửa cấu trúc và một lệnh sửa dữ liệu, theo đúng thứ tự?
+A. UPDATE và ALTER TABLE
+B. DELETE và DROP TABLE
+C. SELECT và CREATE TABLE
+D. ALTER TABLE và UPDATE
+Nhận biết | DDL và DML
+
+Câu 023. CTHD có khóa chính (MaHD, MaSP), đã có hàng (1, SP1). Thao tác chèn nào vi phạm
+khóa chính, giả sử các ràng buộc khác đều thỏa mãn?
+A. Thêm (1, SP1).
+B. Thêm (2, SP2).
+C. Thêm (2, SP1).
+D. Thêm (1, SP2).
+Vận dụng | Khóa chính ghép
+Câu 024. HOADON.MaKH tham chiếu KHACHHANG.MaKH; cột không NULL. Thêm hóa đơn với
+MaKH chưa có trong KHACHHANG sẽ thế nào nếu khóa ngoại đang được ép buộc?
+A. Được chèn vì khóa ngoại chỉ kiểm tra khi DELETE.
+B. Được chèn và MaKH tự đổi thành NULL.
+C. SQL Server tự tạo khách hàng còn thiếu.
+D. Bị từ chối vì vi phạm khóa ngoại.
+Thông hiểu | Khóa ngoại
+Câu 025. Cần kiểm tra dữ liệu hiện có khi tạo CHECK, đồng thời ép buộc với INSERT và
+UPDATE sau này. Cặp tùy chọn (Check Existing Data; Enforce For INSERTs And UPDATEs) là
+gì?
+A. (Yes; Yes)
+B. (Yes; No)
+C. (No; No)
+D. (No; Yes)
+Vận dụng | CHECK trong SSMS
+Câu 026. Cần gán tổng tiền và số hóa đơn cho hai biến đã khai báo. Lệnh nào đúng?
+A. SET (@Tong, @Dem) = SELECT SUM(Tien), COUNT(*) FROM HOADON;
+B. SELECT SUM(Tien), COUNT(*) INTO @Tong, @Dem FROM HOADON;
+C. SET @Tong = SUM(Tien), @Dem = COUNT(*) FROM HOADON;
+D. SELECT @Tong = SUM(Tien), @Dem = COUNT(*) FROM HOADON;
+Vận dụng | Biến vô hướng
+Câu 027. Câu SELECT cuối trả về gì?
+DECLARE @n int;
+SELECT @n;
+A. NULL
+B. 0
+C. Chuỗi rỗng
+D. Lỗi vì biến chưa được SET
+Vận dụng | Biến chưa gán
+
+Câu 028. Câu nào khai báo biến bảng đúng cú pháp?
+A. CREATE TABLE @T (ID int, Ten nvarchar(50));
+B. DECLARE @T TABLE (ID int, Ten nvarchar(50));
+C. DECLARE @T AS TABLE SELECT ID, Ten FROM SV;
+D. DECLARE TABLE @T (ID int, Ten nvarchar(50));
+Thông hiểu | Biến bảng
+Câu 029. Biến bảng @T(ID int) đã được khai báo. Muốn đưa ID từ SINHVIEN vào @T, lệnh nào
+hợp lệ?
+A. SET @T = SELECT ID FROM SINHVIEN;
+B. CREATE TABLE @T AS SELECT ID FROM SINHVIEN;
+C. SELECT ID INTO @T FROM SINHVIEN;
+D. INSERT INTO @T(ID) SELECT ID FROM SINHVIEN;
+Vận dụng | Biến bảng
+Câu 030. Chỉ tính các dòng PRINT: đoạn mã in gì?
+DECLARE @x int = 9;
+IF @x < 5
+    PRINT 'A';
+    PRINT 'B';
+PRINT 'C';
+A. B rồi C
+B. A rồi B rồi C
+C. Chỉ C
+D. Không in dòng nào
+Vận dụng | IF và khối lệnh
+Câu 031. Đoạn mã in gì với ANSI_NULLS ON?
+DECLARE @x int = NULL;
+IF @x = NULL PRINT 'A';
+ELSE PRINT 'B';
+A. A
+B. A rồi B
+C. Lỗi cú pháp
+D. B
+Vận dụng | IF và NULL
+
+Câu 032. SELECT cuối trả về giá trị nào?
+DECLARE @i int = 1, @s int = 0;
+WHILE @i <= 5
+BEGIN
+    SET @s = @s + @i;
+    SET @i = @i + 1;
+END;
+SELECT @s;
+A. 5
+B. 10
+C. 21
+D. 15
+Vận dụng | WHILE
+Câu 033. Đoạn mã trả về @s bằng bao nhiêu?
+DECLARE @i int = 0, @s int = 0;
+WHILE @i < 10
+BEGIN
+    SET @i = @i + 1;
+    IF @i % 2 = 0 CONTINUE;
+    IF @i > 5 BREAK;
+    SET @s = @s + @i;
+END;
+SELECT @s;
+A. 12
+B. 9
+C. 25
+D. 16
+Vận dụng | BREAK và CONTINUE
+Câu 034. Biểu thức CASE trả về gì?
+DECLARE @tre int = 45;
+SELECT CASE
+    WHEN @tre > 30 THEN 'Qua 30'
+    WHEN @tre > 0 THEN 'Co tre'
+    ELSE 'Dung han'
+END;
+A. NULL
+B. Qua 30
+C. Co tre
+D. Dung han
+Vận dụng | CASE tìm kiếm
+
+Câu 035. Biểu thức sau trả về gì?
+DECLARE @loai int = 3;
+SELECT CASE @loai
+    WHEN 1 THEN 'Mot'
+    WHEN 2 THEN 'Hai'
+END;
+A. Lỗi vì thiếu ELSE
+B. Hai
+C. Khac
+D. NULL
+Vận dụng | CASE đơn giản
+Câu 036. Cặp nào là cú pháp chú thích một dòng và nhiều dòng trong T-SQL?
+A. // và /* ... */
+B. # và <!-- ... -->
+C. -- và /* ... */
+D. REM và { ... }
+Nhận biết | Chú thích
+
+CHƯƠNG 3
+Chuyển đổi kiểu, hàm thư viện và mã kịch bản
+Câu 037-064 | 28 câu
+Câu 037. SELECT sau trả về gì?
+SELECT 2 + '5' + '5';
+A. 255
+B. 12
+C. Lỗi chuyển đổi
+D. 57
+Vận dụng | Ưu tiên kiểu
+Câu 038. SELECT sau trả về gì?
+SELECT '2' + '5' + '5';
+A. 255
+B. Lỗi chuyển đổi
+C. 57
+D. 12
+Vận dụng | Ưu tiên kiểu
+Câu 039. SELECT sau có kết quả gì?
+SELECT 'HD' + 7;
+A. Lỗi chuyển chuỗi sang int.
+B. Số 7.
+C. Chuỗi HD7.
+D. Chuỗi 7HD.
+Vận dụng | Ưu tiên kiểu
+Câu 040. @a int, @b decimal(5,2), @c float. Biểu thức @a * @b * @c có kiểu kết quả nào?
+A. int
+B. money
+C. decimal
+D. float
+Thông hiểu | Kiểu biểu thức
+Câu 041. Với @a=5, @b=8 kiểu int, biểu thức nào trả về 62.5 về mặt giá trị?
+A. @a * 100 / @b
+B. @a / @b * 100
+C. CAST(@a AS decimal(6,2)) * 100 / @b
+D. CAST(@a / @b AS decimal(6,2)) * 100
+Vận dụng | Chia số nguyên
+
+Câu 042. SELECT sau trả về giá trị nào?
+SELECT CAST(3 / 4 AS decimal(5,2));
+A. 1.00
+B. 75.00
+C. 0.00
+D. 0.75
+Vận dụng | Ép kiểu sau chia
+Câu 043. Muốn ép ngày sang chuỗi và chỉ rõ mã định dạng 103, cách viết nào đúng?
+A. CONVERT(varchar(10), @d, 103)
+B. CAST(@d AS varchar(10), 103)
+C. CAST(varchar(10), @d, 103)
+D. CONVERT(@d, varchar(10), 103)
+Thông hiểu | CAST và CONVERT
+Câu 044. Với @d date = '20261209', CONVERT(varchar(10), @d, 103) cho chuỗi nào?
+A. 2026-12-09
+B. 12/09/2026
+C. 09/12/26
+D. 09/12/2026
+Vận dụng | Định dạng ngày
+Câu 045. SELECT LEN bên dưới trả về bao nhiêu? Chuỗi có hai khoảng trắng đầu và ba
+khoảng trắng cuối.
+SELECT LEN('  SQL   ');
+A. 3
+B. 8
+C. 5
+D. 6
+Vận dụng | LEN
+Câu 046. Cặp giá trị của CHARINDEX và SUBSTRING lần lượt là gì?
+DECLARE @s varchar(20) = 'HD-2026-0042';
+SELECT CHARINDEX('-', @s),
+       SUBSTRING(@s, CHARINDEX('-', @s)+1, 4);
+A. 8 và 0042
+B. 3 và -202
+C. 4 và 2026
+D. 3 và 2026
+Vận dụng | Hàm chuỗi
+
+Câu 047. SELECT sau trả về vị trí nào?
+SELECT PATINDEX('%[0-9]%', 'ABC7X');
+A. 3
+B. 4
+C. 5
+D. 0
+Vận dụng | PATINDEX
+Câu 048. @ten nvarchar(50)=N'Nguyễn Minh An', không có khoảng trắng thừa. Biểu thức nào
+lấy đúng từ cuối An?
+A. RIGHT(@ten, CHARINDEX(N' ', REVERSE(@ten))-1)
+B. LEFT(@ten, CHARINDEX(N' ', @ten)-1)
+C. LEFT(REVERSE(@ten), CHARINDEX(N' ', REVERSE(@ten))-1)
+D. SUBSTRING(@ten, 1, 2)
+Vận dụng | Tách tên
+Câu 049. REPLACE bên dưới trả về gì?
+SELECT REPLACE('A-B-C', '-', '/');
+A. A-B/C
+B. A/B/C
+C. ABC
+D. A/B-C
+Vận dụng | REPLACE
+Câu 050. Cột Ma kiểu varchar chứa 2, 11, 100, 9. Khi ORDER BY Ma tăng dần theo so sánh ký
+tự thông thường, thứ tự là gì?
+A. 100, 11, 2, 9
+B. 2, 9, 11, 100
+C. 11, 100, 2, 9
+D. 9, 2, 11, 100
+Vận dụng | Sắp xếp chuỗi số
+Câu 051. Cột SoPhong varchar chỉ chứa chuỗi đổi được sang int. Muốn sắp tăng theo giá trị
+số, viết gì?
+A. ORDER BY SoPhong
+B. ORDER BY REVERSE(SoPhong)
+C. ORDER BY CAST(SoPhong AS int)
+D. ORDER BY LEN(SoPhong)
+Thông hiểu | Sắp xếp theo số
+
+Câu 052. SELECT sau trả về ngày nào?
+SELECT CONVERT(date, DATEADD(day, 1, CAST('20260228' AS date)));
+A. 2027-02-28
+B. 2026-03-01
+C. 2026-03-02
+D. 2026-02-29
+Vận dụng | DATEADD
+Câu 053. Cặp giá trị bên dưới là gì?
+SELECT DATEDIFF(day, '2026-12-31T23:59:59',
+                     '2027-01-01T00:00:00'),
+       DATEDIFF(year, '2026-12-31T23:59:59',
+                      '2027-01-01T00:00:00');
+A. (0, 0)
+B. (1, 0)
+C. (0, 1)
+D. (1, 1)
+Vận dụng | DATEDIFF
+Câu 054. Phát biểu nào đúng về kiểu trả về của DATEPART và DATENAME?
+A. DATEPART trả nvarchar; DATENAME trả int.
+B. Cả hai luôn trả int.
+C. DATEPART trả int; DATENAME trả nvarchar.
+D. Cả hai luôn trả datetime.
+Thông hiểu | DATEPART và DATENAME
+Câu 055. DATHANG có các thời điểm 01/11 lúc 00:00, 01/11 lúc 08:00, 02/11 lúc 00:00 và
+02/11 lúc 18:00 (năm 2026). Ba truy vấn dưới trả về số hàng lần lượt là gì?
+SELECT * FROM DATHANG WHERE NgayDat='20261102';
+SELECT * FROM DATHANG
+ WHERE CONVERT(date,NgayDat)='20261102';
+SELECT * FROM DATHANG
+ WHERE NgayDat BETWEEN '20261101' AND '20261102';
+A. (1, 2, 4)
+B. (2, 2, 4)
+C. (0, 2, 3)
+D. (1, 2, 3)
+Vận dụng | Lọc datetime
+
+Câu 056. Muốn lấy toàn bộ ngày 02/11/2026 và không gọi hàm trên cột datetime NgayDat,
+điều kiện nào đúng?
+A. NgayDat >= '20261102' AND NgayDat < '20261103'
+B. NgayDat BETWEEN '20261102' AND '20261103'
+C. NgayDat = '20261102'
+D. NgayDat > '20261102' AND NgayDat <= '20261103'
+Thông hiểu | Lọc trọn ngày
+Câu 057. Đoạn mã chạy trong SSMS có kết quả gì?
+DECLARE @x int = 10;
+GO
+SELECT @x;
+A. Batch sau GO lỗi vì chưa khai báo @x.
+B. In NULL.
+C. In 0.
+D. In 10.
+Vận dụng | Batch và GO
+Câu 058. Phiên A tạo #T. Khi A vẫn mở, phiên B riêng biệt chạy SELECT * FROM #T. Kết quả
+nào đúng?
+A. B luôn đọc được vì #T lưu trong tempdb.
+B. B không truy cập được #T của A.
+C. B tự nhận bản sao dữ liệu của #T.
+D. B đọc được nếu dùng GO trước SELECT.
+Vận dụng | Bảng tạm cục bộ
+Câu 059. Phiên A tạo ##T và vẫn mở. Phiên B trong cùng SQL Server instance có thể làm gì,
+và bảng nằm ở đâu?
+A. Đọc ##T; bảng nằm trong tempdb.
+B. Không đọc được ##T; bảng nằm trong tempdb.
+C. Đọc ##T; bảng nằm trong master.
+D. Không đọc được ##T; bảng nằm trong CSDL người dùng.
+Thông hiểu | Bảng tạm toàn cục
+Câu 060. Bảng NHANVIEN không có MaNV=999. SELECT cuối trả về gì?
+DECLARE @h int = 7;
+SELECT @h = ISNULL(HeSo,0)
+FROM NHANVIEN WHERE MaNV=999;
+SELECT @h;
+A. Lỗi vì truy vấn không có hàng.
+B. NULL
+C. 7
+D. 0
+Vận dụng | SELECT gán không có hàng
+
+Câu 061. NHANVIEN không có MaNV=999. HeSo kiểu int. Không dùng GROUP BY. SELECT
+cuối trả về gì?
+DECLARE @h int = 7;
+SELECT @h = ISNULL(SUM(HeSo),0)
+FROM NHANVIEN WHERE MaNV=999;
+SELECT @h;
+A. NULL
+B. 7
+C. 0
+D. Không có hàng kết quả.
+Vận dụng | Tổng hợp và NULL
+Câu 062. Chỉ tính các dòng PRINT: đoạn mã in gì?
+BEGIN TRY
+    PRINT 'A';
+    SELECT CAST('xyz' AS int);
+    PRINT 'B';
+END TRY
+BEGIN CATCH
+    PRINT 'C';
+END CATCH;
+PRINT 'D';
+A. A, C
+B. A, B, D
+C. A, B, C, D
+D. A, C, D
+Vận dụng | TRY CATCH
+Câu 063. Trong khối CATCH, cần lấy thông điệp và mã lỗi. Dùng cặp nào?
+A. IDENT_CURRENT và HOST_NAME()
+B. ERROR_SEVERITY() và @@ROWCOUNT
+C. @@SERVERNAME và ERROR_STATE()
+D. ERROR_MESSAGE() và ERROR_NUMBER()
+Thông hiểu | Hàm lỗi
+Câu 064. DELETE dưới xóa đúng 3 hàng. SELECT cuối trả về @n bằng bao nhiêu?
+DECLARE @n int;
+DELETE FROM HOADON WHERE MaKH=7;
+SET @n = @@ROWCOUNT;
+PRINT N'Đã x  lý';
+SELECT @n;
+A. 1
+B. 3
+C. 0
+D. NULL
+Vận dụng | ROWCOUNT
+
+CHƯƠNG 4
+Stored Procedure và giao dịch
+Câu 065-088 | 24 câu
+Câu 065. Lợi ích trực tiếp của Stored Procedure khi một nhiệm vụ SQL được thực hiện nhiều
+lần là gì?
+A. Lưu nhóm lệnh trong CSDL và tái sử dụng bằng lời gọi.
+B. Luôn tạo bản sao vật lý của toàn bộ dữ liệu.
+C. Bắt buộc gửi lại toàn bộ mã nguồn mỗi lần chạy.
+D. Tự động chạy sau mọi câu SELECT trong CSDL.
+Nhận biết | Stored Procedure
+Câu 066. Đoạn mã chạy trong SSMS gây lỗi chính nào?
+DECLARE @nam int = 2027;
+CREATE PROC dbo.usp_Dem
+AS
+    SELECT COUNT(*) FROM HOADON;
+A. Tên thủ tục phải bắt đầu bằng sp_.
+B. CREATE PROC phải là lệnh đầu tiên của batch.
+C. Thủ tục bắt buộc có ít nhất một tham số.
+D. Thủ tục bắt buộc có lệnh RETURN.
+Vận dụng | CREATE PROC và batch
+Câu 067. Tạo thành công thủ tục chỉ có thân SELECT COUNT(*) FROM HOADON. Muốn nhận
+kết quả đếm, cần làm gì?
+A. Chạy lại CREATE PROC cùng tên.
+B. Gọi thủ tục bằng EXEC.
+C. Dùng DROP PROC để kích hoạt thân thủ tục.
+D. Đổi tên thủ tục thành tên bảng.
+Thông hiểu | Tạo và gọi thủ tục
+Câu 068. Thủ tục khai báo @MaKH int, @Nam int=2027, @Loai char(1)='A'. Lời gọi nào gây
+lỗi do thiếu tham số bắt buộc?
+A. EXEC dbo.usp_Tong 5, 2026;
+B. EXEC dbo.usp_Tong 5;
+C. EXEC dbo.usp_Tong @Nam=2026, @Loai='B';
+D. EXEC dbo.usp_Tong @Loai='B', @MaKH=5;
+Vận dụng | Tham số bắt buộc
+
+Câu 069. SELECT trong thủ tục trả về cặp nào khi gọi như dưới?
+CREATE PROC dbo.usp_Cap @a int=2, @b int=3
+AS SELECT @a AS a, @b AS b;
+GO
+EXEC dbo.usp_Cap @a=5;
+A. (2, 3)
+B. Lỗi thiếu tham số.
+C. (5, 3)
+D. (5, 5)
+Vận dụng | Tham số mặc định
+Câu 070. Với thủ tục dbo.usp_Cap(@a int, @b int), lời gọi EXEC dbo.usp_Cap @b=8, @a=3
+gán cặp (@a,@b) nào?
+A. Lỗi vì đảo thứ tự tham số.
+B. (8, 3)
+C. (3, 8)
+D. (NULL, 8)
+Vận dụng | Truyền theo tên
+Câu 071. SELECT cuối trả về bao nhiêu?
+CREATE PROC dbo.usp_Tang @x int OUTPUT
+AS SET @x = @x + 8;
+GO
+DECLARE @k int=1;
+EXEC dbo.usp_Tang @k OUTPUT;
+SELECT @k;
+A. Lỗi tham số OUTPUT.
+B. 1
+C. 9
+D. NULL
+Vận dụng | OUTPUT
+Câu 072. SELECT cuối trả về bao nhiêu?
+CREATE PROC dbo.usp_Tang @x int OUTPUT
+AS SET @x = @x + 8;
+GO
+DECLARE @k int=1;
+EXEC dbo.usp_Tang @k;
+SELECT @k;
+A. 1
+B. NULL
+C. 9
+D. Lỗi vì thiếu OUTPUT ở lời gọi.
+Vận dụng | Thiếu OUTPUT ở lời gọi
+
+Câu 073. Thủ tục phải trả mã trạng thái int và tổng tiền decimal(12,2). Cách thiết kế nào phù
+hợp?
+A. RETURN cho tổng tiền; PRINT cho mã trạng thái.
+B. Chỉ OUTPUT vì không được dùng chung với RETURN.
+C. Hai RETURN liên tiếp để trả hai giá trị.
+D. RETURN cho mã trạng thái; OUTPUT cho tổng tiền.
+Thông hiểu | RETURN và OUTPUT
+Câu 074. SELECT cuối trả về giá trị nào?
+CREATE PROC dbo.usp_TrangThai
+AS
+BEGIN
+    RETURN 4;
+    RETURN 9;
+END;
+GO
+DECLARE @r int;
+EXEC @r = dbo.usp_TrangThai;
+SELECT @r;
+A. 4
+B. NULL
+C. 0
+D. Lỗi do thủ tục không có SELECT.
+Vận dụng | Nhận RETURN
+Câu 075. Một thủ tục đã tồn tại. Cần xem mã định nghĩa rồi sửa thân mà không xóa đối
+tượng. Cặp lệnh phù hợp là gì?
+A. CREATE PROC và DROP PROC
+B. sp_helptext và ALTER PROC
+C. DROP PROC và CREATE TABLE
+D. EXEC và DROP TABLE
+Thông hiểu | Quản lý thủ tục
+Câu 076. Thủ tục được tạo WITH ENCRYPTION. Dùng sp_helptext để xem nội dung theo cách
+thông thường sẽ thế nào?
+A. Tự động nhận mật khẩu giải mã.
+B. Luôn xem được vì thủ tục đã biên dịch.
+C. Không xem được văn bản định nghĩa theo cách đó.
+D. Thủ tục bị xóa sau khi xem.
+Thông hiểu | ENCRYPTION
+
+Câu 077. Chỉ tính các dòng PRINT: đoạn mã in gì?
+BEGIN TRY
+    PRINT 'A';
+    RAISERROR('Thong bao',10,1);
+    PRINT 'B';
+    RAISERROR('Khong hop le',16,1);
+    PRINT 'C';
+END TRY
+BEGIN CATCH
+    PRINT 'E'+CAST(ERROR_SEVERITY() AS varchar(2));
+END CATCH;
+A. A, B, C
+B. A, B, E50000
+C. A, B, E16
+D. A, E10
+Vận dụng | RAISERROR và CATCH
+Câu 078. Cần ghi hóa đơn và hai dòng chi tiết; nếu một thao tác thất bại thì không giữ hóa
+đơn hoặc chi tiết nào. Thiết kế nào đúng?
+A. COMMIT ngay sau INSERT hóa đơn rồi mới ghi chi tiết.
+B. Chỉ bọc INSERT chi tiết cuối trong giao dịch.
+C. Dùng ba batch GO thay cho giao dịch.
+D. Đặt cả nhóm trong giao dịch; COMMIT khi đủ, ROLLBACK trong CATCH.
+Thông hiểu | Giao dịch
+Câu 079. T(ID int PRIMARY KEY) ban đầu rỗng. Chạy các lệnh dưới trong chế độ autocommit,
+XACT_ABORT OFF, không trigger và không giao dịch ngoài. Sau khi lệnh cuối lỗi, T còn bao
+nhiêu hàng?
+INSERT INTO T VALUES(1);
+INSERT INTO T VALUES(2);
+INSERT INTO T VALUES(1);
+A. 1
+B. 0
+C. 2
+D. 3
+Vận dụng | Autocommit và lỗi
+
+Câu 080. T(ID int PRIMARY KEY) ban đầu rỗng, không giao dịch ngoài và không trigger. Sau
+đoạn mã T còn bao nhiêu hàng?
+BEGIN TRY
+    BEGIN TRAN;
+    INSERT INTO T VALUES(1);
+    INSERT INTO T VALUES(2);
+    INSERT INTO T VALUES(1);
+    COMMIT TRAN;
+END TRY
+BEGIN CATCH
+    ROLLBACK TRAN;
+END CATCH;
+A. 3
+B. 1
+C. 0
+D. 2
+Vận dụng | Rollback khi lỗi
+Câu 081. T ban đầu có 8 hàng, DELETE dưới xóa đúng 2 hàng, không trigger. Sau đoạn mã in
+gì và T còn mấy hàng?
+BEGIN TRAN;
+DELETE FROM T WHERE Nhom=1;
+IF @@ROWCOUNT > 1
+BEGIN ROLLBACK TRAN; PRINT 'Huy'; END
+ELSE
+BEGIN COMMIT TRAN; PRINT 'Ghi'; END;
+A. Huy; 8 hàng
+B. Ghi; 8 hàng
+C. Ghi; 6 hàng
+D. Huy; 6 hàng
+Vận dụng | ROWCOUNT và giao dịch
+Câu 082. Không có giao dịch ngoài trước đoạn mã. Hai SELECT trả @@TRANCOUNT lần lượt
+bằng bao nhiêu?
+BEGIN TRAN;
+BEGIN TRAN;
+SELECT @@TRANCOUNT;
+COMMIT TRAN;
+SELECT @@TRANCOUNT;
+ROLLBACK TRAN;
+A. 2 rồi 1
+B. 1 rồi 0
+C. 2 rồi 0
+D. 1 rồi 1
+Vận dụng | Nested transaction
+
+Câu 083. T(ID int) ban đầu rỗng, không giao dịch ngoài. Cặp giá trị cuối (@@TRANCOUNT,
+COUNT(*)) là gì?
+BEGIN TRAN;
+INSERT T VALUES(1);
+BEGIN TRAN;
+INSERT T VALUES(2);
+ROLLBACK TRAN;
+SELECT @@TRANCOUNT;
+SELECT COUNT(*) FROM T;
+A. (0, 0)
+B. (2, 2)
+C. (0, 1)
+D. (1, 1)
+Vận dụng | Nested rollback
+Câu 084. T(ID int) ban đầu rỗng. Không có giao dịch ngoài. Sau mã dưới, T còn các ID nào?
+BEGIN TRAN;
+INSERT T VALUES(1);
+BEGIN TRAN;
+INSERT T VALUES(2);
+COMMIT TRAN;
+ROLLBACK TRAN;
+SELECT ID FROM T;
+A. Không có ID nào.
+B. Chỉ 2.
+C. 1 và 2.
+D. Chỉ 1.
+Vận dụng | Commit trong và rollback ngoài
+Câu 085. T ban đầu có ID 1,2,3,4,5. Không có giao dịch ngoài. SELECT cuối trả các ID nào?
+BEGIN TRAN;
+DELETE T WHERE ID=2;
+SAVE TRAN A;
+DELETE T WHERE ID=4;
+SAVE TRAN B;
+DELETE T WHERE ID=5;
+ROLLBACK TRAN B;
+COMMIT TRAN;
+SELECT ID FROM T;
+A. 1, 3, 5
+B. 1, 2, 3, 4, 5
+C. 3, 5
+D. 1, 3
+Vận dụng | Savepoint
+
+Câu 086. Không có giao dịch ngoài. SELECT dưới trả bao nhiêu?
+BEGIN TRAN;
+SAVE TRAN S;
+ROLLBACK TRAN S;
+SELECT @@TRANCOUNT;
+COMMIT TRAN;
+A. 1
+B. 0
+C. Lỗi vì savepoint không tồn tại.
+D. 2
+Vận dụng | Savepoint và TRANCOUNT
+Câu 087. T ban đầu có ID 1,2,3,4. SELECT cuối trả các ID nào?
+BEGIN TRAN;
+DELETE T WHERE ID=1;
+SAVE TRAN S1;
+DELETE T WHERE ID=2;
+SAVE TRAN S2;
+DELETE T WHERE ID=3;
+ROLLBACK TRAN S1;
+COMMIT TRAN;
+SELECT ID FROM T;
+A. 1, 2, 3, 4
+B. 2, 3, 4
+C. Chỉ 4
+D. 1, 4
+Vận dụng | Nhiều savepoint
+Câu 088. Muốn lấy giá trị identity cuối đã sinh cho riêng bảng HOADON, không giới hạn ở
+phiên hiện tại, dùng biểu thức nào?
+A. @@IDENTITY
+B. @@ROWCOUNT
+C. IDENT_CURRENT('HOADON')
+D. @@TRANCOUNT
+Thông hiểu | IDENT_CURRENT
+
+CHƯƠNG 5
+Hàm người dùng định nghĩa, View và Trigger
+Câu 089-120 | 32 câu
+Câu 089. Ba loại hàm T-SQL người dùng định nghĩa trong bài là gì?
+A. Hàm DDL, hàm DML, hàm DCL.
+B. Hàm vô hướng, hàm bảng nội tuyến, hàm bảng nhiều câu lệnh.
+C. Hàm cục bộ, hàm toàn cục, hàm tạm.
+D. Hàm INSERT, hàm UPDATE, hàm DELETE.
+Nhận biết | Các loại UDF
+Câu 090. SELECT cuối trả giá trị nào?
+CREATE FUNCTION dbo.fnTinh(@a int,@b int)
+RETURNS int
+AS
+BEGIN
+    RETURN @a*@b+1;
+END;
+GO
+SELECT dbo.fnTinh(3,4);
+A. 13
+B. Lỗi vì hàm phải gọi bằng EXEC.
+C. 14
+D. 36
+Vận dụng | Scalar UDF
+Câu 091. Hàm dbo.fnCong(@a int,@b int=10) trả @a+@b. Khi gọi trong SELECT, cách nào
+dùng đúng mặc định của @b?
+A. SELECT dbo.fnCong(5, NULL);
+B. SELECT dbo.fnCong(5);
+C. SELECT dbo.fnCong(5, DEFAULT);
+D. SELECT dbo.fnCong(@a=5);
+Vận dụng | Tham số mặc định của UDF
+Câu 092. Phát biểu nào đúng về scalar UDF T-SQL trong bài?
+A. Phải có ít nhất một tham số OUTPUT.
+B. Có kiểu RETURNS và không khai báo tham số OUTPUT.
+C. Luôn gọi bằng EXEC và không dùng trong SELECT.
+D. Chỉ được trả số nguyên giống RETURN của SP.
+Thông hiểu | UDF so với SP
+
+Câu 093. Hành động nào được phép trong UDF T-SQL nhiều câu lệnh?
+A. Tạo và dùng bảng tạm #T.
+B. UPDATE bảng nghiệp vụ đang tồn tại trong CSDL.
+C. Thực thi thủ tục nghiệp vụ bằng EXEC.
+D. INSERT vào biến bảng cục bộ được khai báo trong hàm.
+Thông hiểu | Hạn chế UDF
+Câu 094. Dạng khai báo nào là hàm giá trị bảng nội tuyến?
+A. RETURNS int AS BEGIN RETURN 1; END;
+B. RETURNS @T TABLE(...) AS BEGIN ... RETURN; END;
+C. RETURNS TABLE AS RETURN (SELECT ...);
+D. CREATE PROC ... AS SELECT ...;
+Thông hiểu | Inline TVF
+Câu 095. dbo.fnHoaDon(@MaKH int) trả về bảng gồm các cột MaHD, Tien. Câu nào dùng
+đúng hàm?
+A. SELECT * FROM dbo.fnHoaDon(7);
+B. SELECT * FROM dbo.fnHoaDon;
+C. EXEC dbo.fnHoaDon @MaKH=7 OUTPUT;
+D. SELECT dbo.fnHoaDon(7) + 1;
+Vận dụng | Gọi hàm bảng
+Câu 096. Trong hàm có RETURNS @T TABLE(ID int, Tong int), kết quả bảng được tạo bằng
+cách nào?
+A. SELECT ... INTO #T rồi RETURN #T.
+B. RETURN một số nguyên là ID của bảng.
+C. Khai báo @T OUTPUT trong lời gọi SELECT.
+D. Nạp và xử lý dữ liệu trong @T rồi dùng RETURN không kèm biểu thức.
+Thông hiểu | Multi-statement TVF
+Câu 097. Hàm có thân RETURN (SELECT SUM(Tien) FROM HOADON WHERE MaKH=@m).
+Không có hóa đơn phù hợp, Tien không NULL ở các hàng hiện có. Giá trị trả về là gì?
+A. Lỗi vì SUM không có hàng.
+B. NULL
+C. Một bảng rỗng
+D. 0
+Vận dụng | Scalar UDF và NULL
+
+Câu 098. Cặp lệnh nào sửa định nghĩa và xóa UDF?
+A. ALTER FUNCTION và DROP FUNCTION
+B. UPDATE VIEW và DELETE VIEW
+C. ALTER PROC và DROP PROC
+D. UPDATE FUNCTION và DELETE FUNCTION
+Nhận biết | Quản lý hàm
+Câu 099. Với view thông thường không có chỉ mục, phát biểu nào đúng?
+A. View lưu định nghĩa truy vấn để biểu diễn dữ liệu từ bảng cơ sở.
+B. View là bảng tạm chỉ tồn tại trong một phiên.
+C. View luôn lưu một bản sao độc lập của mọi hàng.
+D. View bắt buộc có tham số đầu vào.
+Nhận biết | View
+Câu 100. Muốn cho nhân viên xem MaNV, HoTen nhưng không xem Luong, cách dùng view
+phù hợp là gì?
+A. Tạo view rồi cấp SELECT toàn bộ bảng cơ sở cho mọi người.
+B. Tạo view chỉ chọn MaNV, HoTen và cấp quyền view phù hợp.
+C. Tạo view SELECT * và mặc định che mọi cột số.
+D. Tạo view SELECT * rồi đổi tên cột Luong.
+Thông hiểu | View và quyền
+Câu 101. Mã dưới tạo view lỗi vì cột tính toán chưa được đặt tên. Cách sửa trực tiếp nào
+đúng?
+CREATE VIEW dbo.vCT
+AS
+SELECT MaHD, SoLuong*DonGia
+FROM CTHD;
+A. Thêm ORDER BY SoLuong vào cuối.
+B. Đổi CREATE VIEW thành CREATE TABLE mà giữ AS SELECT.
+C. Thêm AS ThanhTien sau biểu thức SoLuong*DonGia.
+D. Thêm GO giữa AS và SELECT.
+Vận dụng | Tên cột tính toán
+Câu 102. Định nghĩa nào không hợp lệ vì ORDER BY được dùng một mình, không TOP hoặc
+OFFSET?
+A. CREATE VIEW dbo.v1 AS SELECT ID FROM T;
+B. CREATE VIEW dbo.v1 AS SELECT ID FROM T ORDER BY ID;
+C. CREATE VIEW dbo.v1 AS SELECT ID AS Ma FROM T;
+D. CREATE VIEW dbo.v1 AS SELECT TOP 3 ID FROM T ORDER BY ID;
+Vận dụng | ORDER BY trong view
+
+Câu 103. View chọn TOP 3 hóa đơn với ORDER BY Tien DESC. Muốn kết quả hiển thị luôn theo
+Tien giảm dần khi truy vấn view, làm gì?
+A. Thêm WHERE Tien > 0 để cố định thứ tự.
+B. Đặt tên view bắt đầu bằng Top.
+C. Chỉ SELECT * FROM view là đã bảo đảm thứ tự.
+D. Viết ORDER BY Tien DESC ở SELECT bên ngoài.
+Thông hiểu | Thứ tự qua view
+Câu 104. View vNV là SELECT MaNV, HoTen, Luong FROM NHANVIEN WHERE Luong>0.
+Không trigger, không ràng buộc nào bị vi phạm. UPDATE vNV SET Luong=Luong+100 WHERE
+MaNV=1 tác động ở đâu?
+A. Chỉ sửa định nghĩa SELECT của view.
+B. Cập nhật hàng phù hợp trong bảng NHANVIEN.
+C. Luôn lỗi vì view không cho cập nhật.
+D. Chỉ sửa bản sao dữ liệu bên trong vNV.
+Vận dụng | View cập nhật đơn giản
+Câu 105. View vTong là SELECT MaKH,SUM(Tien) AS Tong FROM HOADON GROUP BY MaKH.
+Không có INSTEAD OF trigger. Vì sao UPDATE vTong SET Tong=100 không hợp lệ?
+A. View tổng hợp chỉ cho phép DELETE thay cho UPDATE.
+B. Tong là kết quả tổng hợp, không ánh xạ trực tiếp tới một cột cần sửa.
+C. SUM chỉ dùng được trong Stored Procedure.
+D. Mọi view đều cấm UPDATE.
+Thông hiểu | View tổng hợp
+Câu 106. DROP VIEW dbo.vHoaDon thành công. Điều gì xảy ra với dữ liệu trong bảng
+HOADON được view tham chiếu?
+A. HOADON được đổi thành bảng tạm.
+B. Toàn bộ dữ liệu HOADON bị xóa.
+C. Dữ liệu vẫn còn trong HOADON.
+D. HOADON được đổi tên thành vHoaDon.
+Thông hiểu | DROP VIEW
+Câu 107. Muốn thay điều kiện lọc của view đã tồn tại, giữ đối tượng view, dùng lệnh nào?
+A. UPDATE VIEW
+B. RENAME VIEW
+C. INSERT VIEW
+D. ALTER VIEW
+Nhận biết | ALTER VIEW
+
+Câu 108. vNV chọn nhân viên Luong>0 và có WITH CHECK OPTION. Không trigger; không
+ràng buộc khác. Đang có MaNV=1, Luong=100. UPDATE vNV SET Luong=-1 WHERE MaNV=1
+sẽ thế nào?
+A. Bị từ chối vì hàng sau cập nhật không thỏa điều kiện view.
+B. Được cập nhật và hàng vẫn hiện trong view.
+C. Xóa luôn hàng MaNV=1.
+D. Được cập nhật và SQL Server tự đổi -1 thành 0.
+Vận dụng | WITH CHECK OPTION
+Câu 109. Một DML trigger FOR INSERT gắn với bảng MUAHANG được kích hoạt theo cách
+nào?
+A. Trigger chạy sau mỗi SELECT vào bất kỳ bảng nào.
+B. Trigger chỉ chạy khi khởi động SQL Server.
+C. SQL Server tự kích hoạt khi có lệnh INSERT vào MUAHANG.
+D. Người dùng phải EXEC trigger sau INSERT.
+Nhận biết | Kích hoạt trigger
+Câu 110. Trong trigger DELETE, các hàng vừa bị xóa được đọc từ bảng logic nào?
+A. tempdb
+B. master
+C. inserted
+D. deleted
+Thông hiểu | inserted và deleted
+Câu 111. Một UPDATE đổi SoLuong từ 2 thành 5. Trong trigger UPDATE, cặp
+(deleted.SoLuong, inserted.SoLuong) là gì?
+A. (5, 5)
+B. (5, 2)
+C. (2, 2)
+D. (2, 5)
+Thông hiểu | Ảnh trước và sau UPDATE
+Câu 112. Một câu INSERT thêm 4 hàng vào MUAHANG thành công. Trong trigger FOR INSERT
+tương ứng, số hàng (inserted, deleted) là gì?
+A. (4, 4)
+B. (0, 4)
+C. (1, 0)
+D. (4, 0)
+Vận dụng | INSERT và bảng logic
+
+Câu 113. UPDATE MUAHANG SET SoLuong=SoLuong WHERE MaKH=1 tác động một hàng.
+Trong trigger UPDATE, UPDATE(SoLuong) cho biết điều gì?
+A. Câu lệnh chắc chắn bị rollback.
+B. Tất cả các cột trong bảng đều thay đổi.
+C. Cột được đưa vào thao tác cập nhật, dù giá trị có thể không đổi.
+D. Giá trị mới chắc chắn khác giá trị cũ.
+Vận dụng | UPDATE(cột)
+Câu 114. SACH có MaSach=S1, tồn kho 20. Chèn đúng một dòng MUAHANG(S1,3). Trigger
+trừ inserted.SoLuong khỏi tồn kho. Tồn kho mới là bao nhiêu?
+A. 3
+B. 20
+C. 17
+D. 23
+Vận dụng | Trigger cập nhật tồn kho
+Câu 115. Tồn kho hiện tại đã trừ đơn cũ và còn 15. Một dòng mua đổi SoLuong từ 2 thành 5,
+MaSach không đổi. Trigger trừ (inserted.SoLuong-deleted.SoLuong). Tồn kho mới bằng bao
+nhiêu?
+A. 18
+B. 12
+C. 15
+D. 10
+Vận dụng | Trigger điều chỉnh số lượng
+Câu 116. Tồn kho hiện tại đã tính đơn cũ và còn 12. Một dòng mua đổi SoLuong từ 5 về 2.
+Trigger trừ (inserted.SoLuong-deleted.SoLuong). Tồn kho mới bằng bao nhiêu?
+A. 12
+B. 10
+C. 9
+D. 15
+Vận dụng | Trigger giảm số lượng mua
+Câu 117. Trigger gán SELECT @MaSach=MaSach,@SL=SoLuong FROM inserted. Một INSERT
+thêm nhiều sách khác nhau. Rủi ro chính là gì?
+A. Biến vô hướng không thể đại diện toàn bộ tập hàng trong inserted.
+B. Mọi hàng tự được xử lý đúng nhờ dùng biến vô hướng.
+C. inserted tự giới hạn chỉ một hàng và báo lỗi ngay.
+D. Trigger được tự tách thành một lần chạy cho mỗi sách.
+Thông hiểu | Trigger nhiều hàng
+
+Câu 118. Một INSERT thêm hai dòng mua cùng MaSach S1 với SoLuong 2 và 3. Tồn kho là 20.
+Trigger đúng phải gộp SUM(SoLuong) theo MaSach trước khi trừ. Tồn kho mới là bao nhiêu?
+A. 20
+B. 18
+C. 17
+D. 15
+Vận dụng | Gộp lượng mua
+Câu 119. Kho S1 có 4; chèn đúng một dòng mua 7. Trigger so sánh kho với lượng bán, nếu
+thiếu thì ROLLBACK TRAN, ngược lại trừ kho. Không giao dịch ngoài, không trigger khác. Sau
+lệnh chèn thế nào?
+A. Giữ dòng mua 7; tồn kho vẫn 4.
+B. Không giữ dòng mua mới; tồn kho vẫn 4.
+C. Giữ dòng mua 7; tồn kho thành -3.
+D. Không giữ dòng mua mới; tồn kho thành -3.
+Vận dụng | Trigger rollback
+Câu 120. Cần tự ghi nhật ký dữ liệu cũ và mới mỗi khi bảng giá được UPDATE, kể cả lệnh do
+ứng dụng khác gửi. Đối tượng phù hợp nhất trong phạm vi bài là gì?
+A. Stored Procedure mà người cập nhật không bắt buộc gọi.
+B. Scalar UDF được gọi trong SELECT.
+C. View thông thường không trigger.
+D. Trigger UPDATE đọc deleted và inserted.
+Thông hiểu | Chọn SP, UDF, View, Trigger
+
+Đáp án nhanh
+Che phần này khi làm đề. Mỗi hàng hiển thị liên tiếp 10 câu.
+001: B
+002: C
+003: B
+004: A
+005: C
+006: C
+007: B
+008: D
+009: D
+010: B
+011: C
+012: B
+013: D
+014: D
+015: B
+016: C
+017: A
+018: B
+019: C
+020: B
+021: A
+022: D
+023: A
+024: D
+025: A
+026: D
+027: A
+028: B
+029: D
+030: A
+031: D
+032: D
+033: B
+034: B
+035: D
+036: C
+037: B
+038: A
+039: A
+040: D
+041: C
+042: C
+043: A
+044: D
+045: C
+046: D
+047: B
+048: A
+049: B
+050: A
+051: C
+052: B
+053: D
+054: C
+055: D
+056: A
+057: A
+058: B
+059: A
+060: C
+061: C
+062: D
+063: D
+064: B
+065: A
+066: B
+067: B
+068: C
+069: C
+070: C
+071: C
+072: A
+073: D
+074: A
+075: B
+076: C
+077: C
+078: D
+079: C
+080: C
+081: A
+082: A
+083: A
+084: A
+085: A
+086: A
+087: B
+088: C
+089: B
+090: A
+091: C
+092: B
+093: D
+094: C
+095: A
+096: D
+097: B
+098: A
+099: A
+100: B
+101: C
+102: B
+103: D
+104: B
+105: B
+106: C
+107: D
+108: A
+109: C
+110: D
+111: D
+112: D
+113: C
+114: C
+115: B
+116: D
+117: A
+118: D
+119: B
+120: D
+Gợi ý chia ba lượt luyện
+Lượt 1: làm theo chương, đối chiếu kiến thức và ghi lại lỗi. Lượt 2: làm đề 40 câu trong 50
+phút, không xem đáp án trước khi nộp. Lượt 3: dùng nút ôn câu sai trên bản HTML, rồi đọc lại
+đúng trang slide được dẫn ở lời giải.
+
+Giải thích - Chương 1
+Câu 001 - B. CSDL chứa dữ liệu; DBMS cung cấp các chức năng lưu trữ, truy xuất, cập nhật
+và quản lý dữ liệu.
+Slide chương 1, trang PDF 7, 17.
+Câu 002 - C. Dữ liệu bị lặp trong nhiều file; cập nhật không đồng bộ làm các bản không nhất
+quán.
+Slide chương 1, trang PDF 10-12.
+Câu 003 - B. Hàng là tuple/bộ; cột là thuộc tính; bảng là quan hệ.
+Slide chương 1, trang PDF 22, 28-30.
+Câu 004 - A. DBA chịu trách nhiệm quản trị truy cập, giám sát, bảo mật và vận hành CSDL.
+Slide chương 1, trang PDF 24-27.
+Câu 005 - C. SQL Server hoạt động theo mô hình khách chủ và hỗ trợ nhiều người dùng truy
+cập đồng thời.
+Slide chương 1, trang PDF 32-33.
+Câu 006 - C. SSMS có Query Editor, Object Explorer và các công cụ quản lý CSDL.
+Slide chương 1, trang PDF 42-43, 53.
+Câu 007 - B. Configuration Manager quản lý dịch vụ SQL Server và cấu hình giao thức mạng.
+Slide chương 1, trang PDF 43, 48-51.
+Câu 008 - D. SQLCMD là công cụ dòng lệnh dùng để làm việc với SQL Server.
+Slide chương 1, trang PDF 42.
+Câu 009 - D. SSIS phục vụ tích hợp và chuyển đổi dữ liệu; SSRS phục vụ báo cáo; SSAS phục
+vụ phân tích.
+Slide chương 1, trang PDF 44-45.
+Câu 010 - B. Theo kiến trúc vật lý trong slide, .mdf là file dữ liệu chính; .ldf là file log; .ndf là
+file dữ liệu phụ.
+Slide chương 1, trang PDF 54-55.
+Câu 011 - C. Slide hướng dẫn detach trước khi di chuyển các file dữ liệu, sau đó attach từ vị
+trí mới.
+Slide chương 1, trang PDF 54, 57.
+Câu 012 - B. Windows Authentication dùng định danh Windows; SQL Server Authentication
+dùng SQL Login.
+Slide chương 1, trang PDF 52.
+
+Giải thích - Chương 2
+Câu 013 - D. nvarchar hỗ trợ Unicode và độ dài thay đổi; nchar hỗ trợ Unicode nhưng có độ
+dài cố định.
+Slide chương 2, trang PDF 6, 10.
+Câu 014 - D. char(6) phù hợp mã độ dài cố định và không cần Unicode.
+Slide chương 2, trang PDF 6, 10. Dạng tương ứng: câu 8 giữa kỳ.
+Câu 015 - B. char: 5; varchar: 3; nchar: 10; nvarchar: 6. Tổng 5+3+10+6=24 byte. Ví dụ chỉ
+dùng ký tự ASCII để tránh vấn đề ký tự Unicode bổ sung.
+Slide chương 2, trang PDF 6. Dạng tương ứng: câu 14 giữa kỳ.
+Câu 016 - C. p là tổng chữ số; s là chữ số phần thập phân. Phần nguyên có tối đa p-s=5 chữ
+số.
+Slide chương 2, trang PDF 7.
+Câu 017 - A. decimal(5,2) có tối đa 3 chữ số phần nguyên. 1000.00 cần 4 chữ số; 1.234 được
+làm tròn về 2 chữ số thập phân.
+Slide chương 2, trang PDF 7. Dạng tương ứng: câu 7 giữa kỳ.
+Câu 018 - B. tinyint có miền 0-255; bit chỉ nhận 0 hoặc 1; smallint và int lớn hơn mức cần
+thiết.
+Slide chương 2, trang PDF 7.
+Câu 019 - C. date lưu ngày; datetime2(7) lưu ngày và giờ có độ chính xác cao, không chứa
+offset. Slide trang 8 ghi nhầm datetime(n) ở dòng mô tả datetime2.
+Slide chương 2, trang PDF 8. Dạng tương ứng: câu 16 giữa kỳ.
+Câu 020 - B. Số điện thoại là định danh để hiển thị, không dùng tính toán. Kiểu số không giữ
+số 0 đầu và dấu + như chuỗi.
+Slide chương 2, trang PDF 11.
+Câu 021 - A. text là chuỗi không Unicode; ntext là chuỗi Unicode; image là dữ liệu nhị phân.
+Slide chương 2, trang PDF 9, 12. Dạng tương ứng: câu 27 giữa kỳ.
+Câu 022 - D. ALTER TABLE thuộc DDL, sửa cấu trúc; UPDATE thuộc DML, sửa giá trị dữ liệu.
+Slide chương 2, trang PDF 26-29.
+Câu 023 - A. Khóa ghép yêu cầu toàn bộ cặp giá trị duy nhất. Có thể lặp riêng MaHD hoặc
+MaSP nhưng không lặp cả cặp.
+Slide chương 2, trang PDF 19-20. Dạng tương ứng: câu 36 giữa kỳ.
+Câu 024 - D. Khóa ngoại kiểm tra giá trị tham chiếu phải tồn tại ở bảng cha, nếu giá trị không
+NULL.
+Slide chương 2, trang PDF 20.
+
+Câu 025 - A. Tùy chọn thứ nhất kiểm tra dữ liệu đang có; tùy chọn thứ hai kiểm soát thao tác
+chèn và cập nhật.
+Slide chương 2, trang PDF 21. Dạng tương ứng: câu 22 giữa kỳ.
+Câu 026 - D. SELECT cho phép gán nhiều biến cùng câu lệnh; SET thông thường chỉ gán một
+biến.
+Slide chương 2, trang PDF 33-35. Dạng tương ứng: câu 37 giữa kỳ.
+Câu 027 - A. Biến cục bộ chưa được gán có giá trị NULL; việc đọc biến đã khai báo vẫn hợp lệ.
+Slide chương 2, trang PDF 33.
+Câu 028 - B. Biến bảng được khai báo bằng DECLARE @Tên TABLE (...).
+Slide chương 2, trang PDF 36-38. Dạng tương ứng: câu 30 giữa kỳ.
+Câu 029 - D. INSERT ... SELECT nạp dữ liệu vào biến bảng đã khai báo; SELECT ... INTO không
+dùng @T làm bảng đích.
+Slide chương 2, trang PDF 37-38. Dạng tương ứng: câu 30 giữa kỳ.
+Câu 030 - A. Không có BEGIN...END, IF chỉ điều khiển PRINT A; PRINT B và PRINT C luôn chạy.
+Slide chương 2, trang PDF 39-40. Dạng tương ứng: câu 5 giữa kỳ.
+Câu 031 - D. So sánh NULL bằng dấu = cho UNKNOWN; nhánh IF không chạy và ELSE chạy.
+Muốn kiểm tra NULL dùng IS NULL.
+Slide chương 2, trang PDF 39-40.
+Câu 032 - D. Vòng lặp cộng 1+2+3+4+5=15 rồi @i tăng thành 6, khiến điều kiện sai.
+Slide chương 2, trang PDF 41-42.
+Câu 033 - B. Chỉ cộng số lẻ. @i=1,3,5 cho tổng 9; @i=6 bị CONTINUE; @i=7 gặp BREAK trước
+lệnh cộng.
+Slide chương 2, trang PDF 41. Dạng tương ứng: câu 32 giữa kỳ.
+Câu 034 - B. WHEN đầu tiên đã đúng với 45 nên trả Qua 30. Thứ tự điều kiện quyết định kết
+quả.
+Slide chương 2, trang PDF 44-45. Dạng tương ứng: câu 18 giữa kỳ.
+Câu 035 - D. CASE không có WHEN phù hợp và không có ELSE trả NULL; ELSE là tùy chọn.
+Slide chương 2, trang PDF 43.
+Câu 036 - C. T-SQL dùng -- cho chú thích một dòng; /* ... */ cho chú thích khối.
+Slide chương 2, trang PDF 31.
+
+Giải thích - Chương 3
+Câu 037 - B. int ưu tiên cao hơn varchar. Tính trái sang phải: 2+5=7, rồi 7+5=12.
+Slide chương 3, trang PDF 6-9. Dạng tương ứng: câu 31 giữa kỳ.
+Câu 038 - A. Cả ba toán hạng đều là chuỗi; phép + nối chuỗi từ trái sang phải: 2 và 5 thành
+25, nối thêm 5 thành 255.
+Slide chương 3, trang PDF 6-9.
+Câu 039 - A. int có độ ưu tiên cao hơn varchar; SQL Server cố chuyển HD sang int và thất bại.
+Slide chương 3, trang PDF 6-10.
+Câu 040 - D. int được chuyển sang decimal trong phép nhân đầu; float có ưu tiên cao hơn
+decimal ở phép nhân tiếp theo.
+Slide chương 3, trang PDF 9. Dạng tương ứng: câu 35 giữa kỳ.
+Câu 041 - C. Phải ép kiểu trước khi chia. Ép kiểu sau khi @a/@b đã bằng 0 vẫn cho 0;
+@a/@b*100 cũng bằng 0. @a*100/@b cho 62 vì chia số nguyên.
+Slide chương 3, trang PDF 12-14. Dạng tương ứng: câu 2 giữa kỳ.
+Câu 042 - C. 3/4 được tính theo int và bằng 0 trước khi CAST sang decimal(5,2).
+Slide chương 3, trang PDF 14. Dạng tương ứng: câu 2 giữa kỳ.
+Câu 043 - A. CONVERT nhận kiểu đích, biểu thức, rồi style; CAST dùng cú pháp CAST(biểu
+thức AS kiểu).
+Slide chương 3, trang PDF 12, 15.
+Câu 044 - D. Style 103 là dd/mm/yyyy, với năm bốn chữ số.
+Slide chương 3, trang PDF 15-17, 34. Dạng tương ứng: câu 1 giữa kỳ.
+Câu 045 - C. LEN tính khoảng trắng đầu nhưng bỏ khoảng trắng cuối: 2+3=5.
+Slide chương 3, trang PDF 18-19.
+Câu 046 - D. Dấu - đầu tiên ở vị trí 3. Bắt đầu vị trí 4, lấy 4 ký tự được 2026.
+Slide chương 3, trang PDF 18-19. Dạng tương ứng: câu 39 giữa kỳ.
+Câu 047 - B. Mẫu [0-9] khớp một chữ số. Chữ số đầu tiên trong ABC7X là 7 ở vị trí 4; dấu %
+cho phép có các ký tự trước và sau.
+Slide chương 3, trang PDF 18-19.
+Câu 048 - A. Chuỗi đảo có khoảng trắng đầu ở vị trí 3, nên từ cuối dài 2 ký tự. RIGHT trên
+chuỗi gốc trả An; LEFT trên chuỗi đảo trả nA.
+Slide chương 3, trang PDF 18, 22. Dạng tương ứng: câu 12 giữa kỳ.
+Câu 049 - B. REPLACE thay thế mọi lần xuất hiện của chuỗi tìm kiếm, không chỉ lần đầu.
+Slide chương 3, trang PDF 18.
+
+Câu 050 - A. So sánh chuỗi từ trái sang phải: 100 đứng trước 11 vì ký tự thứ hai 0 nhỏ hơn 1;
+rồi đến 2 và 9.
+Slide chương 3, trang PDF 21. Dạng tương ứng: câu 13 giữa kỳ.
+Câu 051 - C. CAST sang int trước khi ORDER BY làm tiêu chí sắp xếp trở thành số; độ dài
+không đủ phân biệt thứ tự số.
+Slide chương 3, trang PDF 21.
+Câu 052 - B. 2026 không phải năm nhuận; thêm một ngày vào 28/02 là 01/03.
+Slide chương 3, trang PDF 23, 28.
+Câu 053 - D. Khoảng một giây vượt cả ranh giới ngày lẫn ranh giới năm, nên mỗi DATEDIFF
+đều trả 1.
+Slide chương 3, trang PDF 23, 28. Dạng tương ứng: câu 40 giữa kỳ.
+Câu 054 - C. DATEPART cho giá trị số nguyên của phần ngày; DATENAME cho biểu diễn
+tên/chuỗi. Slide trang 23 trình bày chung hai hàm nên dễ nhầm.
+Slide chương 3, trang PDF 23-28.
+Câu 055 - D. Phép = chỉ khớp nửa đêm 02/11; CONVERT(date) khớp cả ngày; BETWEEN có
+hai đầu bao gồm nhưng đầu trên là nửa đêm 02/11.
+Slide chương 3, trang PDF 29-31. Dạng tương ứng: câu 10 giữa kỳ.
+Câu 056 - A. Khoảng nửa mở lấy cả thời điểm đầu ngày 02/11 và loại đầu ngày 03/11; không
+bỏ sót phần lẻ giây cuối ngày.
+Slide chương 3, trang PDF 30-31.
+Câu 057 - A. GO kết thúc batch; biến cục bộ của batch trước không tồn tại trong batch sau.
+Slide chương 3, trang PDF 38, 54. Dạng tương ứng: câu 11 giữa kỳ.
+Câu 058 - B. Bảng tạm cục bộ # chỉ nhìn thấy trong phiên tạo nó; nằm trong tempdb không
+làm nó trở thành bảng dùng chung.
+Slide chương 3, trang PDF 44.
+Câu 059 - A. ## là bảng tạm toàn cục, dùng chung giữa các phiên trong cùng instance; các
+bảng tạm được lưu trong tempdb.
+Slide chương 3, trang PDF 44. Dạng tương ứng: câu 20 giữa kỳ.
+Câu 060 - C. SELECT gán biến từ tập không có hàng không thực hiện phép gán; @h giữ 7.
+ISNULL không được đánh giá nếu không có hàng.
+Slide chương 3, trang PDF 39, 42; chương II: 33-35. Dạng tương ứng: câu 26 giữa kỳ.
+Câu 061 - C. SUM trên tập rỗng cho NULL; truy vấn tổng hợp không GROUP BY vẫn có một
+hàng, ISNULL đổi NULL thành 0 và gán vào @h.
+Slide chương 3, trang PDF 42; chương II: 35. Dạng tương ứng: câu 26 giữa kỳ.
+
+Câu 062 - D. CAST xyz sang int gây lỗi thực thi có thể bắt; chuyển ngay vào CATCH, bỏ B, rồi
+tiếp tục D sau CATCH.
+Slide chương 3, trang PDF 46-48. Dạng tương ứng: câu 23 giữa kỳ.
+Câu 063 - D. ERROR_MESSAGE là nội dung thông báo; ERROR_NUMBER là mã lỗi.
+ERROR_SEVERITY là mức nghiêm trọng.
+Slide chương 3, trang PDF 47, 49.
+Câu 064 - B. Phải đọc @@ROWCOUNT ngay sau câu lệnh cần đo. SET @n=@@ROWCOUNT
+chụp số 3; các câu lệnh sau không làm thay đổi giá trị đã lưu trong @n.
+Slide chương 3, trang PDF 49. Dạng tương ứng: câu 24 giữa kỳ.
+
+Giải thích - Chương 4
+Câu 065 - A. Stored Procedure là đối tượng được đặt tên trong CSDL; dùng EXEC để gọi lại
+thay vì viết lại nhóm lệnh.
+Slide chương 4, trang PDF 5-6.
+Câu 066 - B. DECLARE đứng trước CREATE PROC trong cùng batch làm vi phạm quy tắc.
+Thêm GO trước CREATE PROC để tách batch.
+Slide chương 4, trang PDF 7-8. Dạng tương ứng: câu 3 giữa kỳ.
+Câu 067 - B. CREATE PROC lưu định nghĩa; EXEC mới thực thi thân thủ tục.
+Slide chương 4, trang PDF 6-8. Dạng tương ứng: câu 3 giữa kỳ.
+Câu 068 - C. Chỉ @MaKH không có mặc định, nên phải truyền. @Nam và @Loai có thể dùng
+mặc định.
+Slide chương 4, trang PDF 9-13. Dạng tương ứng: câu 29 giữa kỳ.
+Câu 069 - C. Lời gọi truyền @a=5; @b không truyền nên nhận giá trị mặc định 3.
+Slide chương 4, trang PDF 9-13.
+Câu 070 - C. Truyền theo tên xác định tham số bằng tên, không bắt buộc giữ thứ tự khai báo.
+Slide chương 4, trang PDF 12-13.
+Câu 071 - C. OUTPUT được khai báo trong thủ tục và ghi ở lời gọi nên giá trị mới được chép
+về biến @k.
+Slide chương 4, trang PDF 9, 12-14.
+Câu 072 - A. Không ghi OUTPUT ở lời gọi vẫn hợp lệ nhưng kết quả không được chép về @k.
+Biến ngoài giữ 1.
+Slide chương 4, trang PDF 12-14. Dạng tương ứng: câu 33 giữa kỳ.
+Câu 073 - D. RETURN của Stored Procedure trả int và thoát thủ tục; OUTPUT phù hợp trả dữ
+liệu như decimal.
+Slide chương 4, trang PDF 14-16. Dạng tương ứng: câu 4 giữa kỳ.
+Câu 074 - A. EXEC @r=... nhận mã trả về của RETURN. RETURN kết thúc thủ tục nên RETURN
+9 không được thực thi.
+Slide chương 4, trang PDF 15-16.
+Câu 075 - B. sp_helptext hiển thị nội dung khi có quyền và thủ tục không ENCRYPTION;
+ALTER PROC thay định nghĩa.
+Slide chương 4, trang PDF 21-23. Dạng tương ứng: câu 28 giữa kỳ.
+Câu 076 - C. ENCRYPTION làm văn bản định nghĩa không hiển thị qua sp_helptext; không
+phải cơ chế mã hóa dữ liệu trong bảng.
+Slide chương 4, trang PDF 8, 21.
+
+Câu 077 - C. Severity 10 là thông báo, không chuyển vào CATCH. Severity 16 chuyển sang
+CATCH, bỏ C; ERROR_SEVERITY() cho 16.
+Slide chương 4, trang PDF 17-20. Dạng tương ứng: câu 25 giữa kỳ.
+Câu 078 - D. Giao dịch gộp các thao tác liên quan thành đơn vị logic; rollback cả nhóm tránh
+trạng thái ghi dở.
+Slide chương 4, trang PDF 25-28.
+Câu 079 - C. Hai INSERT đầu đã commit riêng; INSERT cuối vi phạm khóa chính và không
+thêm hàng, không hủy hai lệnh thành công trước.
+Slide chương 4, trang PDF 27, 29. Dạng tương ứng: câu 36 giữa kỳ.
+Câu 080 - C. Lệnh thứ ba lỗi do trùng khóa, chuyển sang CATCH; ROLLBACK hủy cả hai
+INSERT đầu của giao dịch.
+Slide chương 4, trang PDF 27. Dạng tương ứng: câu 36 giữa kỳ.
+Câu 081 - A. DELETE tác động 2 hàng; điều kiện >1 đúng nên ROLLBACK khôi phục cả 2
+hàng và in Huy.
+Slide chương 4, trang PDF 30. Dạng tương ứng: câu 17 giữa kỳ.
+Câu 082 - A. Mỗi BEGIN tăng đếm; COMMIT khi đếm >1 chỉ giảm 1, chưa commit bền vững.
+ROLLBACK cuối đóng giao dịch còn lại.
+Slide chương 4, trang PDF 31-32.
+Câu 083 - A. ROLLBACK không chỉ định savepoint hủy toàn bộ giao dịch đang hoạt động, đặt
+@@TRANCOUNT=0 và hủy cả hai INSERT.
+Slide chương 4, trang PDF 31-32. Dạng tương ứng: câu 9 giữa kỳ.
+Câu 084 - A. COMMIT bên trong chỉ giảm @@TRANCOUNT từ 2 xuống 1; ROLLBACK ngoài vẫn
+hủy cả hai INSERT.
+Slide chương 4, trang PDF 31-32.
+Câu 085 - A. Sau xóa 2 tạo A; xóa 4 rồi tạo B; rollback B chỉ khôi phục 5. Xóa 4 diễn ra trước
+B nên vẫn được giữ khi COMMIT.
+Slide chương 4, trang PDF 33-34. Dạng tương ứng: câu 21 giữa kỳ.
+Câu 086 - A. SAVE TRAN không tăng @@TRANCOUNT; rollback đến savepoint không kết thúc
+giao dịch, nên đếm vẫn 1.
+Slide chương 4, trang PDF 31, 33. Dạng tương ứng: câu 21 giữa kỳ.
+Câu 087 - B. ROLLBACK S1 hủy mọi thao tác sau S1, tức xóa 2 và xóa 3. Xóa 1 diễn ra trước
+S1 nên được commit.
+Slide chương 4, trang PDF 33-34. Dạng tương ứng: câu 21 giữa kỳ.
+Câu 088 - C. IDENT_CURRENT chỉ định bảng và không giới hạn session/scope; @@IDENTITY
+giới hạn phiên hiện tại nhưng có thể phản ánh bảng khác do trigger.
+Slide chương 4, trang PDF 25; chương III: 49. Dạng tương ứng: câu 24 giữa kỳ.
+
+Giải thích - Chương 5
+Câu 089 - B. Phân loại dựa vào kết quả vô hướng/bảng và cách tạo kết quả bảng.
+Slide chương 5, trang PDF 5-8.
+Câu 090 - A. Hàm nhận @a=3 và @b=4, trả @a*@b+1=13. Scalar UDF dùng được trong biểu
+thức SELECT.
+Slide chương 5, trang PDF 7, 9.
+Câu 091 - C. Trong biểu thức gọi UDF, dùng DEFAULT tại vị trí tham số tùy chọn. NULL là giá
+trị được truyền, không yêu cầu dùng mặc định.
+Slide chương 5, trang PDF 9.
+Câu 092 - B. Scalar UDF khai báo kiểu trả về như int, money, decimal...; không dùng
+OUTPUT. RETURN của SP mới bị giới hạn int.
+Slide chương 5, trang PDF 6, 9.
+Câu 093 - D. UDF có thể thao tác biến bảng cục bộ, nhưng không thay đổi bảng nghiệp vụ
+hoặc dùng bảng tạm. Đây là phần hiệu chỉnh phát biểu ở slide trang 6.
+Slide chương 5, trang PDF 6, 13-14; ghi chú kỹ thuật M1. Hiệu chỉnh slide; xem ghi chú M1.
+Câu 094 - C. Inline TVF trả bảng từ một SELECT; multi-statement TVF khai báo biến bảng trả
+về và thân BEGIN...END.
+Slide chương 5, trang PDF 11-12.
+Câu 095 - A. Hàm trả bảng được dùng như nguồn dữ liệu trong FROM, phải truyền đối số
+trong ngoặc.
+Slide chương 5, trang PDF 11-12, 15.
+Câu 096 - D. Biến bảng @T trong RETURNS là kết quả trả về. Thân hàm có thể
+INSERT/UPDATE @T và kết thúc bằng RETURN.
+Slide chương 5, trang PDF 13-14.
+Câu 097 - B. SUM trên tập rỗng trả NULL. Muốn trả 0 phải dùng ISNULL(SUM(Tien),0).
+Slide chương 5, trang PDF 9-10.
+Câu 098 - A. ALTER FUNCTION sửa hàm; DROP FUNCTION xóa hàm. UPDATE và DELETE dùng
+với dữ liệu.
+Slide chương 5, trang PDF 16.
+Câu 099 - A. View là bảng ảo. View thông thường không lưu độc lập một tập dữ liệu sao chép;
+indexed view là trường hợp khác.
+Slide chương 5, trang PDF 18.
+Câu 100 - B. View có thể giới hạn cột hiển thị; quyền truy cập cũng cần được thiết kế phù
+hợp, tránh cho phép đọc trực tiếp cột nhạy cảm.
+Slide chương 5, trang PDF 19.
+
+Câu 101 - C. Cột biểu thức trong view phải có tên: dùng alias hoặc danh sách tên cột sau tên
+view.
+Slide chương 5, trang PDF 21-24.
+Câu 102 - B. ORDER BY đứng riêng không được dùng trong định nghĩa view. Mẫu TOP ...
+ORDER BY là dạng được giới thiệu trong slide.
+Slide chương 5, trang PDF 22-23.
+Câu 103 - D. ORDER BY trong view chọn các hàng TOP nhưng không bảo đảm thứ tự của truy
+vấn ngoài. Muốn bảo đảm phải ORDER BY tại SELECT ngoài.
+Slide chương 5, trang PDF 23; ghi chú kỹ thuật M2. Làm rõ ví dụ TOP trong slide; xem M2.
+Câu 104 - B. View đơn giản ánh xạ cột trực tiếp về một bảng; UPDATE qua view sửa dữ liệu
+của bảng cơ sở.
+Slide chương 5, trang PDF 25-27.
+Câu 105 - B. Cột SUM được tính từ nhiều hàng; không thể gán trực tiếp một giá trị tổng hợp
+qua view như cột bảng cơ sở.
+Slide chương 5, trang PDF 25-26.
+Câu 106 - C. DROP VIEW xóa đối tượng view và định nghĩa truy vấn, không xóa bảng cơ sở
+hoặc dữ liệu của bảng đó.
+Slide chương 5, trang PDF 28-29.
+Câu 107 - D. ALTER VIEW thay định nghĩa; UPDATE qua view sửa dữ liệu, không sửa câu
+SELECT định nghĩa view.
+Slide chương 5, trang PDF 28-29.
+Câu 108 - A. WITH CHECK OPTION buộc thao tác ghi qua view giữ hàng thỏa điều kiện lọc.
+Đây là tình huống vận dụng cú pháp xuất hiện ở trang 28.
+Slide chương 5, trang PDF 28; ghi chú kỹ thuật M2.
+Câu 109 - C. Trigger tự thực thi để phản ứng với thao tác DML được khai báo trên đối tượng
+gắn trigger.
+Slide chương 5, trang PDF 32-33.
+Câu 110 - D. DELETE đưa dữ liệu trước khi xóa vào deleted; inserted không có dữ liệu của
+thao tác DELETE.
+Slide chương 5, trang PDF 38.
+Câu 111 - D. deleted chứa ảnh trước cập nhật; inserted chứa ảnh sau cập nhật.
+Slide chương 5, trang PDF 35, 38.
+Câu 112 - D. inserted chứa toàn bộ 4 hàng mới của câu lệnh; deleted không có hàng. Trigger
+phải xử lý tập nhiều hàng.
+Slide chương 5, trang PDF 38.
+
+Câu 113 - C. UPDATE(cột) kiểm tra việc cột được cập nhật, không chứng minh giá trị thực tế
+thay đổi. Có thể so sánh inserted và deleted để kiểm tra khác nhau.
+Slide chương 5, trang PDF 33, 35; ghi chú kỹ thuật M3. Làm rõ IF UPDATE trong slide; xem M3.
+Câu 114 - C. Bán 3 nên tồn kho giảm 20-3=17. Câu hỏi giả sử chỉ một dòng mua của S1 và
+không có trigger khác.
+Slide chương 5, trang PDF 34.
+Câu 115 - B. Lượng mua tăng thêm 5-2=3; tồn kho giảm thêm 3: 15-3=12, không trừ lại toàn
+bộ 5.
+Slide chương 5, trang PDF 35.
+Câu 116 - D. Chênh lệch 2-5=-3; tồn kho 12-(-3)=15. Giảm lượng mua hoàn lại 3 vào kho.
+Slide chương 5, trang PDF 35.
+Câu 117 - A. inserted có thể có nhiều hàng. Gán vào biến vô hướng chỉ giữ một giá trị cuối
+được xử lý, không bảo đảm đại diện cả tập; cần xử lý theo tập.
+Slide chương 5, trang PDF 36-39; ghi chú kỹ thuật M4. Vận dụng ví dụ trang 39; xem M4.
+Câu 118 - D. Tổng bán của S1 là 2+3=5; tồn kho đúng là 20-5=15. JOIN trực tiếp nhiều hàng
+cùng khóa không bảo đảm trừ đủ tổng.
+Slide chương 5, trang PDF 34, 36-39; ghi chú kỹ thuật M4. Nâng mức vận dụng ví dụ trigger; xem M4.
+Câu 119 - B. Nhánh thiếu hàng rollback giao dịch của INSERT nên dòng mua bị hủy; nhánh
+trừ kho không chạy.
+Slide chương 5, trang PDF 39.
+Câu 120 - D. Trigger phản ứng tự động với UPDATE trên bảng; đọc deleted/inserted để có dữ
+liệu trước/sau. SP chỉ chạy khi được gọi.
+Slide chương 5, trang PDF 6, 18, 32.
+
+Điểm cần đọc chính xác trong slide
+M1 - UDF và bảng tạm
+Slide bài 5 trang 6 nói rộng rằng hàm có thể tạo bảng/bảng tạm. Với UDF T-SQL, được dùng
+biến bảng cục bộ; không được dùng bảng tạm hoặc sửa trạng thái CSDL bằng cách cập nhật
+bảng nghiệp vụ. Câu 93 dùng quy tắc SQL Server đã kiểm tra.
+M2 - View và khả năng cập nhật
+Bài 5 trang 26 đưa điều kiện giản lược. Khi xét thực tế cần xem cột nào được sửa có ánh xạ
+trực tiếp về một bảng cơ sở hay không. Một cột tính toán không được gán trực tiếp, nhưng sự
+có mặt của nó không tự cấm mọi thao tác sửa cột khác. TOP đơn thuần cũng không tự khiến
+mọi view chỉ đọc. ORDER BY bên trong view không bảo đảm thứ tự truy vấn ngoài. Câu 103,
+105, 108 chỉ dùng tình huống xác định rõ.
+M3 - UPDATE(cột) trong trigger
+UPDATE(cột) cho biết cột được đưa vào thao tác cập nhật; có thể true dù giá trị mới bằng giá
+trị cũ. Xem câu 113.
+M4 - Trigger phải xử lý tập hàng
+Các ví dụ bài 5 trang 34-39 cần được xét khi một câu DML tác động nhiều hàng. Không lấy
+một biến vô hướng thay cho toàn bộ inserted. Nếu nhiều dòng mua cùng sách, phải tổng hợp
+theo MaSach trước khi trừ tồn kho. Xem câu 112, 117-118.
+Tên kiểu ngày giờ
+Bài 2 trang 8 ghi datetime(n) nhưng mô tả dòng đó là datetime2(n). Bộ câu hỏi dùng tên đúng
+datetime2.
+Hàm ngày, định dạng và lỗi
+DATEPART trả int; DATENAME trả nvarchar. Cách hiểu chuỗi ngày phụ thuộc định dạng và
+thiết lập phiên, không phải lúc nào cũng tháng/ngày/năm. TRY...CATCH không bắt mọi lỗi;
+severity 10 chỉ là thông báo. Bộ câu hỏi chỉ dùng lỗi thực thi và định dạng xác định rõ.
+Identity và commit
+@@IDENTITY giới hạn phiên hiện tại nhưng không giới hạn scope; IDENT_CURRENT giới hạn
+bảng, không giới hạn phiên. COMMIT trong giao dịch lồng chỉ ghi bền vững khi lần COMMIT
+ngoài cùng đưa @@TRANCOUNT về 0.
+
+Tài liệu dùng để biên soạn
+[R] Kiểm tra_ Attempt review _ HUCE LMS.pdf
+21 trang; 40 câu giữa kỳ. Tham khảo dạng đọc mã, phát hiện lỗi và cách đặt phương án nhiễu.
+[1] adb-lesson-01-20260804080228-e.pdf
+70 trang; tổng quan RDBMS, SQL Server, công cụ và SSMS.
+[2] adb-lesson-02-20260818082524-e.pdf
+49 trang; kiểu dữ liệu, thiết kế CSDL, biến và điều khiển luồng.
+[3] adb-lesson-03-20260818082341-e.pdf
+55 trang; chuyển đổi kiểu, hàm thư viện, mã kịch bản, bảng tạm và lỗi.
+[4] adb-lesson-04-20260904093955-e.pdf
+38 trang; Stored Procedure và giao dịch.
+[5] adb-lesson-05-20260908070202-e.pdf
+39 trang; UDF, View và Trigger.
+Đối chiếu kỹ thuật từ Microsoft Learn
+[M1] Create user-defined functions (Database Engine)
+https://learn.microsoft.com/en-us/sql/relational-databases/user-defined-functions/create-user-defined-function
+s-database-engine
+[M2] CREATE VIEW (Transact-SQL)
+https://learn.microsoft.com/en-us/sql/t-sql/statements/create-view-transact-sql
+[M3] UPDATE() (Transact-SQL)
+https://learn.microsoft.com/en-us/sql/t-sql/functions/update-trigger-functions-transact-sql
+[M4] Create DML triggers to handle multiple rows of data
+https://learn.microsoft.com/en-us/sql/relational-databases/triggers/create-dml-triggers-to-handle-multiple-rows
+-of-data
+Các nguồn Microsoft chỉ làm rõ hành vi liên quan đến nội dung đã có trong slide. Không đưa các tính năng
+phiên bản mới ngoài phạm vi bài học vào đề.
