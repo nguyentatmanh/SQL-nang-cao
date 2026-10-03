@@ -41,7 +41,11 @@ Dự án được xây dựng nhằm hỗ trợ sinh viên ôn tập và kiểm 
 * **Thanh điều hướng dưới đáy (Mobile Bottom Bar):** Dễ dàng thao tác chuyển câu hoặc mở bảng danh sách bằng một tay trên điện thoại.
 * **Nút cuộn nhanh lên đầu trang (Scroll-to-top):** Tiện lợi khi đọc các câu hỏi dài.
 
-### 4. 📚 Trình Đọc Tài Liệu Ngay Trong Ứng Dụng (In-App PDF Viewer)
+### 4. 📚 Trình Đọc Slide & Tài Liệu Thông Minh (In-App PDF.js Mobile Viewer)
+* Tích hợp công cụ **Mozilla PDF.js** kết xuất slide sắc nét chuẩn Retina / High-DPI trực tiếp trên HTML5 Canvas:
+  * **Trượt lướt mượt mà trên điện thoại di động:** Hỗ trợ cử chỉ vuốt chạm (Touch Swipe) sang trái/phải để chuyển slide trực tiếp mà không cần mở tab mới.
+  * **Thanh điều khiển đầy đủ:** Nút lùi/tiến slide, ô nhập trang trực tiếp, phóng to thu nhỏ (`➕` / `➖`), nút căn vừa khít màn hình (`↔ Vừa khít`), và chuyển đổi chế độ xem (Lướt từng slide hoặc Cuộn dọc).
+  * **Tương thích toàn diện:** Khắc phục triệt để lỗi không cuộn được của thẻ iframe trên iOS Safari và Android Chrome.
 * Tích hợp sẵn 7 bộ tài liệu, slide bài giảng và đề ôn tập:
   * Slide Bài 1: Tổng quan RDBMS & Kiến trúc SQL Server.
   * Slide Bài 2: Biến, Kiểu dữ liệu & Cấu trúc điều khiển T-SQL.
@@ -49,7 +53,7 @@ Dự án được xây dựng nhằm hỗ trợ sinh viên ôn tập và kiểm 
   * Slide Bài 4: Stored Procedures & Quản lý Giao dịch (Transactions).
   * Slide Bài 5: Hàm người dùng định nghĩa (UDFs), Views & Triggers.
   * Đề cương & Đề ôn tập cuối kỳ HUCE.
-* Hỗ trợ **xem trực tiếp trong modal**, **mở tab mới**, **tải về** hoặc **tải lên file PDF cá nhân**.
+* Hỗ trợ **xem trực tiếp bằng canvas trong modal**, **mở tab mới bằng trình đọc của máy**, **tải về** hoặc **tải lên file PDF cá nhân**.
 
 ### 5. ⚡ Tiện Ích Hỗ Trợ Học Tập
 * **Tìm kiếm câu hỏi siêu tốc (`Ctrl + K`):** Tìm kiếm tức thì theo từ khóa, nội dung câu hỏi hoặc đáp án.
