@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ôn Thi Trắc Nghiệm CSDL Nâng Cao - 120 Câu Hỏi Chuẩn HUCE & Slide I-V</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%200%20100%20100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22%20viewBox=%220%200%20100%20100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
   <style>
 /* CSS VARIABLES & THEMING */
 :root {
@@ -224,6 +224,7 @@ body {
   overflow: hidden;
   transition: var(--transition);
   user-select: none;
+  text-decoration: none;
 }
 .btn:hover {
   transform: translateY(-2px);
@@ -747,12 +748,35 @@ body {
   line-height: 1.6;
 }
 .feedback-source {
-  font-size: 12.5px;
+  font-size: 13px;
   color: var(--text-muted);
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   flex-wrap: wrap;
+}
+
+/* LINK BTN TO OPEN SLIDE FROM EXPLANATION */
+.btn-slide-ref {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  background: var(--primary-light);
+  color: var(--primary);
+  border: 1px solid var(--primary-border);
+  cursor: pointer;
+  text-decoration: none;
+  transition: var(--transition);
+}
+.btn-slide-ref:hover {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+  transform: translateY(-1px);
 }
 
 /* BOTTOM NAVIGATION */
@@ -996,6 +1020,125 @@ body {
   font-weight: 700;
 }
 
+/* ATTACHED DOCUMENTS & UPLOAD SECTION */
+.upload-banner {
+  background: var(--bg-elevated);
+  border: 2px dashed var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: 18px 22px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  transition: var(--transition);
+}
+.upload-banner:hover {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+
+.doc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.doc-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  gap: 14px;
+  flex-wrap: wrap;
+  transition: var(--transition);
+}
+.doc-card:hover {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+.doc-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+  min-width: 250px;
+}
+.doc-icon {
+  width: 40px;
+  height: 40px;
+  background: #fee2e2;
+  color: #dc2626;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+[data-theme="dark"] .doc-icon {
+  background: #450a0a;
+  color: #f87171;
+}
+.doc-text h4 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.doc-text p {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.doc-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* IN-PAGE PDF VIEWER MODAL */
+.pdf-modal-window {
+  max-width: 95vw;
+  width: 1100px;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+.pdf-modal-body {
+  flex: 1;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  background: #1e293b;
+}
+.pdf-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: #fff;
+}
+.pdf-fallback-bar {
+  padding: 8px 16px;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border);
+  font-size: 12.5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  color: var(--text-muted);
+}
+
 /* REFERENCE ACCORDIONS */
 .ref-section {
   margin-top: 36px;
@@ -1004,13 +1147,13 @@ body {
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   background: var(--bg-card);
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   overflow: hidden;
 }
 .accordion-header {
-  padding: 14px 18px;
+  padding: 15px 20px;
   font-weight: 650;
-  font-size: 15px;
+  font-size: 15.5px;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
@@ -1023,8 +1166,8 @@ body {
   background: var(--bg-inset);
 }
 .accordion-content {
-  padding: 18px;
-  font-size: 14px;
+  padding: 20px;
+  font-size: 14.5px;
   display: none;
   line-height: 1.7;
 }
@@ -1036,8 +1179,8 @@ body {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(5px);
   z-index: 999;
   display: none;
   align-items: center;
@@ -1456,12 +1599,48 @@ body {
       </aside>
     </div>
 
-    <!-- TECH NOTES & KNOWLEDGE ACCORDION -->
+    <!-- TECH NOTES & ATTACHED DOCUMENTS SECTION -->
     <section class="ref-section">
       <div class="panel-title">
-        <h2>📚 Quy Ước Kỹ Thuật & Tài Liệu Đối Chiếu</h2>
+        <h2>📚 Tài Liệu Đính Kèm, Bài Giảng & Quy Ước Kỹ Thuật</h2>
       </div>
 
+      <!-- ACCORDION: ATTACHED DOCUMENTS (CLICK TO VIEW / DOWNLOAD) -->
+      <div class="accordion open" id="acc-docs">
+        <div class="accordion-header" onclick="toggleAccordion('acc-docs')">
+          <span>📖 Danh Sách 7 Tài Liệu Đính Kèm (Click Để Xem Trực Tiếp / Tải Về)</span>
+          <span>▼</span>
+        </div>
+        <div class="accordion-content" style="display: block;">
+          <!-- Upload / Drag & Drop banner -->
+          <div class="upload-banner">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <div style="font-size: 28px;">📂</div>
+              <div>
+                <strong style="font-size: 14.5px;">Tải lên / Kéo thả tệp PDF từ máy tính của bạn:</strong>
+                <p style="font-size: 12.5px; color: var(--text-muted); margin-top: 2px;">
+                  Bạn có tài liệu hoặc ghi chú riêng? Hãy chọn tệp PDF để mở đọc và đối chiếu trực tiếp ngay trong trang web.
+                </p>
+              </div>
+            </div>
+            <label for="pdf-uploader-input" class="btn btn-primary" style="cursor: pointer; white-space: nowrap;">
+              📁 Chọn File PDF Từ Máy
+            </label>
+            <input type="file" id="pdf-uploader-input" accept=".pdf" style="display: none;">
+          </div>
+
+          <!-- Document Cards List -->
+          <div id="attached-docs-container" class="doc-list"></div>
+
+          <!-- Microsoft Learn Links -->
+          <div style="margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border);">
+            <strong style="font-size: 14px; display: block; margin-bottom: 8px;">🌐 Tài Liệu Microsoft Learn Đối Chiếu Kỹ Thuật:</strong>
+            <div id="learn-urls-list"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ACCORDION: 7 CRITICAL NOTES -->
       <div class="accordion" id="acc-notes">
         <div class="accordion-header" onclick="toggleAccordion('acc-notes')">
           <span>🎯 7 Lưu Ý Dễ Bẫy & Trọng Tâm Ôn Tập (Giữa kỳ HUCE & Slide I-V)</span>
@@ -1469,17 +1648,35 @@ body {
         </div>
         <div class="accordion-content" id="notes-content"></div>
       </div>
-
-      <div class="accordion" id="acc-sources">
-        <div class="accordion-header" onclick="toggleAccordion('acc-sources')">
-          <span>📖 Nguồn Tài Liệu Bài Giảng & Chuẩn Microsoft Learn</span>
-          <span>▼</span>
-        </div>
-        <div class="accordion-content" id="sources-content"></div>
-      </div>
     </section>
 
   </main>
+
+  <!-- MODAL: IN-PAGE PDF VIEWER -->
+  <div id="pdf-viewer-modal" class="modal-overlay">
+    <div class="modal-window pdf-modal-window">
+      <div class="modal-header">
+        <h3 id="pdf-viewer-title" style="font-size: 16px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 60%;">
+          📄 Xem Tài Liệu Bài Giảng
+        </h3>
+        <div style="display: flex; gap: 8px; align-items: center;">
+          <a id="pdf-btn-new-tab" href="#" target="_blank" rel="noopener" class="btn" style="padding: 5px 12px; font-size: 13px;">
+            ↗️ Mở tab mới
+          </a>
+          <a id="pdf-btn-download" href="#" download class="btn" style="padding: 5px 12px; font-size: 13px;">
+            📥 Tải về
+          </a>
+          <button class="btn btn-icon" onclick="closePdfViewer()">✕</button>
+        </div>
+      </div>
+      <div class="pdf-fallback-bar">
+        <span>💡 Mẹo: Bạn có thể xem trực tiếp tại khung này, hoặc nhấn <strong>[↗️ Mở tab mới]</strong> để xem bằng trình đọc PDF toàn màn hình của trình duyệt.</span>
+      </div>
+      <div class="pdf-modal-body">
+        <iframe id="pdf-viewer-frame" class="pdf-iframe" src="about:blank"></iframe>
+      </div>
+    </div>
+  </div>
 
   <!-- MODAL: SEARCH QUESTIONS -->
   <div id="search-modal" class="modal-overlay">
@@ -1820,6 +2017,68 @@ const STORAGE_KEY_WRONG = 'sql-advanced-120-wrong-v2';
 const STORAGE_KEY_FLAGGED = 'sql-advanced-120-flagged-v2';
 const STORAGE_KEY_THEME = 'sql-advanced-120-theme';
 
+// Map chapters to local PDF files
+const CHAPTER_PDFS = {
+  1: 'adb-lesson-01-20260804080228-e.pdf',
+  2: 'adb-lesson-02-20260818082524-e.pdf',
+  3: 'adb-lesson-03-20260818082341-e.pdf',
+  4: 'adb-lesson-04-20260904093955-e.pdf',
+  5: 'adb-lesson-05-20260908070202-e.pdf'
+};
+
+// Full list of attached course documents
+const ATTACHED_DOCS = [
+  {
+    code: 'R',
+    title: 'Đề Thi Giữa Kỳ HUCE LMS (Attempt Review)',
+    file: 'Kiểm tra_ Attempt review _ HUCE LMS.pdf',
+    pages: '21 trang',
+    desc: '40 câu trắc nghiệm thi giữa kỳ thực tế. Tham khảo dạng đọc mã, phát hiện lỗi và bẫy đề.'
+  },
+  {
+    code: '1',
+    title: 'Slide Chương 1: Tổng Quan RDBMS & SQL Server',
+    file: 'adb-lesson-01-20260804080228-e.pdf',
+    pages: '70 trang',
+    desc: 'Tổng quan hệ quản trị CSDL, kiến trúc khách chủ, SSMS, SQLCMD, file dữ liệu .mdf/.ldf.'
+  },
+  {
+    code: '2',
+    title: 'Slide Chương 2: Kiểu Dữ Liệu & Lập Trình T-SQL',
+    file: 'adb-lesson-02-20260818082524-e.pdf',
+    pages: '49 trang',
+    desc: 'Kiểu dữ liệu, tạo bảng, ràng buộc, biến bảng, cấu trúc điều khiển IF, WHILE, CASE.'
+  },
+  {
+    code: '3',
+    title: 'Slide Chương 3: Chuyển Đổi Kiểu & Mã Kịch Bản',
+    file: 'adb-lesson-03-20260818082341-e.pdf',
+    pages: '55 trang',
+    desc: 'CAST, CONVERT, hàm xử lý chuỗi và ngày giờ, batch GO, bảng tạm #/##, TRY...CATCH.'
+  },
+  {
+    code: '4',
+    title: 'Slide Chương 4: Stored Procedure & Giao Dịch',
+    file: 'adb-lesson-04-20260904093955-e.pdf',
+    pages: '38 trang',
+    desc: 'Thủ tục lưu trữ, tham số OUTPUT, RETURN, kiểm soát giao dịch COMMIT, ROLLBACK, Savepoint.'
+  },
+  {
+    code: '5',
+    title: 'Slide Chương 5: UDF, View & Trigger',
+    file: 'adb-lesson-05-20260908070202-e.pdf',
+    pages: '39 trang',
+    desc: 'Hàm người dùng định nghĩa, khung nhìn View, Trigger cập nhật và xử lý tập hàng.'
+  },
+  {
+    code: 'Đ',
+    title: 'Bộ Đề 120 Câu Trắc Nghiệm Ôn Tập Cuối Kỳ',
+    file: 'OnTap_CuoiKy_SQL_NangCao_120Cau.pdf',
+    pages: 'Bản PDF',
+    desc: 'Toàn bộ 120 câu hỏi trắc nghiệm kèm đáp án và giải thích chi tiết bản in ấn PDF.'
+  }
+];
+
 let wrongSet = new Set();
 let flaggedSet = new Set();
 
@@ -1914,7 +2173,95 @@ function showToast(msg) {
 }
 
 /* ==========================================================
-   6. SESSION STATE & MANAGEMENT
+   6. PDF VIEWER & DOCUMENT MANAGEMENT
+   ========================================================== */
+function openPdfViewer(fileUrl, pageNum = 1, title = 'Tài liệu') {
+  sound.playClick();
+  const iframe = $('pdf-viewer-frame');
+  const modal = $('pdf-viewer-modal');
+  const titleEl = $('pdf-viewer-title');
+  const newTabBtn = $('pdf-btn-new-tab');
+  const dlBtn = $('pdf-btn-download');
+
+  // Format url with page anchor
+  let fullUrl = fileUrl;
+  if (pageNum && pageNum > 1 && !fileUrl.startsWith('blob:')) {
+    fullUrl += '#page=' + pageNum;
+  }
+
+  titleEl.textContent = title + (pageNum > 1 ? ' · Trang ' + pageNum : '');
+  iframe.src = fullUrl;
+
+  newTabBtn.href = fullUrl;
+  dlBtn.href = fileUrl;
+  dlBtn.setAttribute('download', title.endsWith('.pdf') ? title : title + '.pdf');
+
+  modal.style.display = 'flex';
+}
+
+function closePdfViewer() {
+  const modal = $('pdf-viewer-modal');
+  modal.style.display = 'none';
+  $('pdf-viewer-frame').src = 'about:blank';
+}
+window.closePdfViewer = closePdfViewer;
+
+// Render the attached documents list
+function renderAttachedDocuments() {
+  const container = $('attached-docs-container');
+  if (!container) return;
+
+  container.innerHTML = '';
+  ATTACHED_DOCS.forEach(doc => {
+    const card = document.createElement('div');
+    card.className = 'doc-card';
+    card.innerHTML = 
+      '<div class="doc-info">' +
+        '<div class="doc-icon">📄</div>' +
+        '<div class="doc-text">' +
+          '<h4><span class="badge badge-ch">Mã ' + esc(doc.code) + '</span> ' + esc(doc.title) + '</h4>' +
+          '<p>' + esc(doc.desc) + ' <span style="color:var(--primary); font-weight:600;">(' + esc(doc.pages) + ')</span></p>' +
+        '</div>' +
+      '</div>' +
+      '<div class="doc-actions">' +
+        '<button class="btn btn-primary btn-view-doc">' +
+          '👁️ Xem trực tiếp' +
+        '</button>' +
+        '<a href="' + encodeURI(doc.file) + '" target="_blank" rel="noopener" class="btn" title="Mở trong tab trình duyệt mới">' +
+          '↗️ Mở tab mới' +
+        '</a>' +
+        '<a href="' + encodeURI(doc.file) + '" download class="btn" title="Tải tệp về máy">' +
+          '📥 Tải về' +
+        '</a>' +
+      '</div>';
+    
+    card.querySelector('.btn-view-doc').addEventListener('click', () => {
+      openPdfViewer(doc.file, 1, doc.title);
+    });
+
+    container.appendChild(card);
+  });
+}
+
+// File upload / drag and drop handler
+function setupPdfUploader() {
+  const input = $('pdf-uploader-input');
+  if (!input) return;
+
+  input.addEventListener('change', (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (file && file.name.toLowerCase().endsWith('.pdf')) {
+      const blobUrl = URL.createObjectURL(file);
+      openPdfViewer(blobUrl, 1, file.name);
+      showToast('Đã mở tệp tải lên: ' + file.name);
+    } else if (file) {
+      showToast('Vui lòng chọn tệp định dạng PDF!');
+    }
+  });
+}
+
+/* ==========================================================
+   7. SESSION STATE & MANAGEMENT
    ========================================================== */
 let session = [];
 let responses = {};      // questionId -> selectedOptionIndex (0..3)
@@ -2027,7 +2374,7 @@ function startQuiz(type) {
 }
 
 /* ==========================================================
-   7. TIMER LOGIC
+   8. TIMER LOGIC
    ========================================================== */
 function updateTimerDisplay() {
   const timerText = $('timer-text');
@@ -2058,7 +2405,7 @@ function updateTimerDisplay() {
 }
 
 /* ==========================================================
-   8. QUESTION RENDERING
+   9. QUESTION RENDERING
    ========================================================== */
 function renderCurrentQuestion() {
   const q = session[currentIndex];
@@ -2160,10 +2507,47 @@ function renderCurrentQuestion() {
     $('feedback-key').textContent = 'Đáp án đúng: ' + q.letter;
     $('feedback-explanation').textContent = q.explanation;
 
-    let srcHtml = '<strong>📖 Nguồn:</strong> Slide chương ' + q.ch + ', trang PDF ' + esc(q.pages);
-    if (q.review) srcHtml += ' · <em>Dạng câu ' + q.review + ' đề giữa kỳ</em>';
-    if (q.note) srcHtml += ' · <span style="color: var(--primary);">' + esc(q.note) + '</span>';
-    $('feedback-source').innerHTML = srcHtml;
+    // Build source with interactive PDF link
+    const pdfFile = CHAPTER_PDFS[q.ch];
+    let pageNum = 1;
+    if (q.pages) {
+      const match = String(q.pages).match(/\d+/);
+      if (match) pageNum = parseInt(match[0], 10);
+    }
+
+    const srcContainer = $('feedback-source');
+    srcContainer.innerHTML = '<span><strong>📖 Nguồn:</strong> Slide chương ' + q.ch + ', trang PDF ' + esc(q.pages) + '</span>';
+    
+    // Add clickable button to open the slide directly at the exact page
+    if (pdfFile) {
+      const viewBtn = document.createElement('button');
+      viewBtn.className = 'btn-slide-ref';
+      viewBtn.textContent = '👁️ Xem Slide Trang ' + pageNum;
+      viewBtn.addEventListener('click', () => {
+        openPdfViewer(pdfFile, pageNum, 'Slide Chương ' + q.ch);
+      });
+      srcContainer.appendChild(viewBtn);
+
+      const tabLink = document.createElement('a');
+      tabLink.className = 'btn-slide-ref';
+      tabLink.href = encodeURI(pdfFile) + '#page=' + pageNum;
+      tabLink.target = '_blank';
+      tabLink.rel = 'noopener';
+      tabLink.textContent = '↗️ Mở tab';
+      tabLink.title = 'Mở đúng trang slide trong tab mới';
+      srcContainer.appendChild(tabLink);
+    }
+
+    if (q.review) {
+      const span = document.createElement('span');
+      span.innerHTML = ' · <em>Dạng câu ' + q.review + ' đề giữa kỳ</em>';
+      srcContainer.appendChild(span);
+    }
+    if (q.note) {
+      const span = document.createElement('span');
+      span.innerHTML = ' · <span style="color: var(--primary);">' + esc(q.note) + '</span>';
+      srcContainer.appendChild(span);
+    }
 
     // Show retry button only in practice mode
     fbRetry.style.display = (examMode === 'practice' && !isSubmitted) ? 'block' : 'none';
@@ -2184,8 +2568,8 @@ function renderCurrentQuestion() {
 }
 
 /* ==========================================================
-   9. ANSWER SELECTION HANDLER
-   ========================================================= */
+   10. ANSWER SELECTION HANDLER
+   ========================================================== */
 function handleSelectOption(optionIndex) {
   const q = session[currentIndex];
   if (!q || isSubmitted) return;
@@ -2225,7 +2609,7 @@ function retryCurrentQuestion() {
 }
 
 /* ==========================================================
-   10. PROGRESS & PALETTE
+   11. PROGRESS & PALETTE
    ========================================================== */
 function updateProgressBar() {
   const answeredCount = session.filter(q => responses[q.id] !== undefined).length;
@@ -2282,7 +2666,7 @@ function renderQuestionGrid() {
 }
 
 /* ==========================================================
-   11. EXAM SUBMISSION & RESULTS
+   12. EXAM SUBMISSION & RESULTS
    ========================================================== */
 function promptSubmitExam() {
   sound.playClick();
@@ -2381,7 +2765,7 @@ function submitExam(auto = false) {
 }
 
 /* ==========================================================
-   12. SEARCH / QUICK LOOKUP
+   13. SEARCH / QUICK LOOKUP
    ========================================================== */
 function handleSearch(query) {
   const qTrim = query.trim().toLowerCase();
@@ -2446,7 +2830,7 @@ function handleSearch(query) {
 }
 
 /* ==========================================================
-   13. MODAL UTILITIES
+   14. MODAL UTILITIES
    ========================================================== */
 function openModal(id) {
   sound.playClick();
@@ -2461,6 +2845,7 @@ function closeModal(id) {
 
 window.closeModal = closeModal;
 window.openModal = openModal;
+window.openPdfViewer = openPdfViewer;
 
 function toggleAccordion(id) {
   sound.playHover();
@@ -2470,7 +2855,7 @@ function toggleAccordion(id) {
 window.toggleAccordion = toggleAccordion;
 
 /* ==========================================================
-   14. EVENT LISTENERS & INITIALIZATION
+   15. EVENT LISTENERS & INITIALIZATION
    ========================================================== */
 // Populate Chapter dropdown
 for (const [ch, title] of Object.entries(BANK.chapters)) {
@@ -2480,7 +2865,7 @@ for (const [ch, title] of Object.entries(BANK.chapters)) {
   $('select-chapter').appendChild(opt);
 }
 
-// Populate Notes & References
+// Populate Notes & Technical references
 $('notes-content').innerHTML = BANK.notes.map(([title, body]) => {
   return '<div style="margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border);">' +
     '<strong style="color: var(--primary); font-size: 14.5px;">📌 ' + esc(title) + '</strong>' +
@@ -2488,18 +2873,14 @@ $('notes-content').innerHTML = BANK.notes.map(([title, body]) => {
     '</div>';
 }).join('');
 
-$('sources-content').innerHTML = 
-  '<table style="width: 100%; border-collapse: collapse; margin-bottom: 14px;">' +
-  '<thead><tr style="background: var(--bg-elevated);"><th style="padding: 8px;">Mã</th><th style="padding: 8px;">Tên tài liệu</th><th style="padding: 8px;">Chi tiết</th></tr></thead>' +
-  '<tbody>' +
-  BANK.sources.map(([tag, file, desc]) => {
-    return '<tr><td style="padding: 8px; border-bottom: 1px solid var(--border); font-weight: 700;">' + esc(tag) + '</td><td style="padding: 8px; border-bottom: 1px solid var(--border);">' + esc(file) + '</td><td style="padding: 8px; border-bottom: 1px solid var(--border); font-size: 12.5px; color: var(--text-muted);">' + esc(desc) + '</td></tr>';
-  }).join('') +
-  '</tbody></table>' +
-  '<p style="font-weight: 700; margin-bottom: 6px;">🌐 Tài liệu Microsoft Learn đối chiếu kỹ thuật:</p>' +
-  BANK.urls.map(([tag, title, url]) => {
-    return '<p style="margin-bottom: 4px;"><a href="' + esc(url) + '" target="_blank" rel="noopener" style="color: var(--primary); text-decoration: none;">🔗 [' + esc(tag) + '] ' + esc(title) + '</a></p>';
-  }).join('');
+// Render attached documents list
+renderAttachedDocuments();
+setupPdfUploader();
+
+// Populate Learn URLs
+$('learn-urls-list').innerHTML = BANK.urls.map(([tag, title, url]) => {
+  return '<p style="margin-bottom: 6px;"><a href="' + esc(url) + '" target="_blank" rel="noopener" style="color: var(--primary); text-decoration: none; font-weight:600;">🔗 [' + esc(tag) + '] ' + esc(title) + '</a></p>';
+}).join('');
 
 // Mode button events
 $('mode-practice-btn').addEventListener('click', () => {
@@ -2676,6 +3057,7 @@ window.addEventListener('keydown', (e) => {
     closeModal('search-modal');
     closeModal('kb-modal');
     closeModal('confirm-modal');
+    closePdfViewer();
     return;
   }
 
